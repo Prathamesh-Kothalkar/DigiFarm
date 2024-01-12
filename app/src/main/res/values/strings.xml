@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DigiFarm</string>
+    <string name="greet_msg">Welcome To DigiFarm</string>
 </resources>

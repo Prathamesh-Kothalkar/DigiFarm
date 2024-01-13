@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
     <!-- TODO: Update blank fragment layout -->
     <!-- Banner Image or Carousel -->
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,44 +22,20 @@
             android:src="@drawable/hero"/>
 
         <!-- Horizontal Three Banners -->
-        <LinearLayout
-            android:id="@+id/bannerContainer"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/bannerViewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_below="@id/heroImage"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/banner1"/>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/banner2"/>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/banner3"/>
-
-        </LinearLayout>
+            android:layout_marginBottom="20dp"/>
 
         <!-- Popular Product Section -->
         <LinearLayout
             android:id="@+id/popularProductContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/bannerContainer"
+            android:layout_below="@id/bannerViewPager"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -81,7 +57,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="430dp"
+            android:layout_below="@+id/popularProductContainer"
             android:background="#fff"
             android:orientation="horizontal">
 
@@ -92,7 +68,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="16dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/greet"/>
+                android:src="@drawable/greet" />
 
             <!-- Product Details -->
             <LinearLayout
@@ -108,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:text="Product Name"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <!-- Category -->
                 <TextView
@@ -116,8 +92,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Category"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
 
                 <!-- Price -->
                 <TextView
@@ -126,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:text="$19.99"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -136,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="Add to Cart"/>
+                android:text="Add to Cart" />
 
 
         </LinearLayout>
@@ -144,7 +120,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="550dp"
+            android:layout_marginTop="500dp"
             android:background="#fff"
             android:orientation="horizontal">
 
@@ -207,7 +183,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="670dp"
+            android:layout_marginTop="620dp"
             android:background="#fff"
             android:orientation="horizontal">
 
@@ -270,7 +246,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="780dp"
+            android:layout_marginTop="740dp"
             android:background="#fff"
             android:orientation="horizontal">
 

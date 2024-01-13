@@ -62,17 +62,53 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        Button myOrderButton = view.findViewById(R.id.myOrderButton);
+        Button myContactButton = view.findViewById(R.id.myContactButton);
+        Button supportButton = view.findViewById(R.id.supportButton);
+        Button tcButton = view.findViewById(R.id.tcButton);
+        Button logoutButton = view.findViewById(R.id.logoutButton);
+        myOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle My Order button click
+                showToast("My Order Clicked");
+            }
+        });
+
+        myContactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("My Contact clicked");
+            }
+        });
+
+        supportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("Support Button clicked");
+            }
+        });
+
+        tcButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("Terms & Conditions Clicked");
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("Logout Clicked..!");
+            }
+        });
+        return view;
+
     }
 
-
-
-    public void onClick(View v) {
-        logout();
-    }
-
-    public void logout(){
-        Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -3,15 +3,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3BDEE4"
+    android:background="#ffff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is Profile"
-        android:textSize="50px"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="50dp"
+        android:layout_margin="30dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardMaxElevation="10dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        >
+        <ImageView
+            android:id="@+id/profile_src"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:src="@drawable/greet"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Your Name"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+
+        app:cardElevation="8dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="16dp"
+        android:layout_margin="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="00px"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <!-- User Profile Image -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:padding="15px"
+                android:textSize="20sp"
+                android:layout_marginLeft="15px"/>
+
+            <TextView
+                android:id="@+id/emailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:layout_gravity="end|center_horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="40px"
+                android:text="john.doe@example.com"
+                android:textSize="20sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50px"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            >
+
+            <!-- User Profile Image -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textSize="20sp"
+                android:layout_marginLeft="15px"
+                android:padding="15px"/>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:layout_gravity="end|center_horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="40px"
+                android:text="9876543210"
+                android:padding="15px"
+                android:textSize="20sp" />
+        </LinearLayout>
+            <!-- Logout Button -->
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="80dp"
+                android:text="Logout"
+                android:onClick="logout"/>
+
+    </androidx.cardview.widget.CardView>
+
 
 </FrameLayout>

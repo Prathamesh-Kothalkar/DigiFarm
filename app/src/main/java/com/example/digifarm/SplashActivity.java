@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
                     System.out.print(e);
                 }
                 finally {
-                    Intent in = new Intent(SplashActivity.this,MainActivity.class);
+                    Intent in = new Intent(SplashActivity.this,SelectLoginActivity.class);
                     startActivity(in);
                     finish();
                 }

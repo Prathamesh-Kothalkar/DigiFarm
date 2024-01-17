@@ -18,8 +18,11 @@
             android:id="@+id/heroImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:rotation="0"
+            android:rotationX="0"
+            android:rotationY="0"
             android:scaleType="centerCrop"
-            android:src="@drawable/hero"/>
+            android:src="@drawable/hero" />
 
         <!-- Horizontal Three Banners -->
         <androidx.viewpager.widget.ViewPager

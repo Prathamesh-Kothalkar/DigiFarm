@@ -22,7 +22,7 @@
             />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textFieldName"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
@@ -30,6 +30,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="300dp"
+                    android:id="@+id/textFieldName"
                     android:layout_height="wrap_content"
                     android:hint="Enter Your Name"
                     android:textColor="@color/black"
@@ -38,15 +39,18 @@
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textFieldCity"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/textFieldCity"
                     android:hint="Enter Your City"
                     android:layout_marginTop="15dp"
                     android:textColor="@color/black"
@@ -57,15 +61,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textFieldPhone"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                app:placeholderTextAppearance="@color/black"
+                app:helperTextTextColor="#FF1908"
                 android:layout_gravity="center_horizontal">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/textFieldPhone"
                     android:hint="Enter Phone Number"
                     android:textColor="@color/black"
                     android:inputType="phone"

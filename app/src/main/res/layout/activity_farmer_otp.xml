@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 app:helperTextEnabled="true"
-                app:helperText="without +91"
+                app:helperText="with +91"
                 app:helperTextTextColor="#E81708"
                 android:layout_marginTop="25dp"
                 >
@@ -50,20 +50,17 @@
                 android:layout_gravity="center_horizontal"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 />
-            <Button
-                android:id="@+id/resendOtp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Resend Otp"
-                android:textSize="10sp"
-                android:textColor="@color/black"
-                android:layout_gravity="center_horizontal"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                />
-
+               <TextView
+                   android:id="@+id/sendAgain"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Can't get otp? Send Again"
+                   android:textAlignment="center"
+                   android:textColor="#470C07"/>
 
             <com.chaos.view.PinView
                 android:id="@+id/pinview"
+                android:enabled="false"
                 app:itemCount="6"
                 app:itemWidth="40dp"
                 app:itemHeight="40dp"
@@ -79,7 +76,7 @@
                 app:hideLineWhenFilled="false"
                 app:itemRadius="10dp"
                 style="@style/PinWidget.PinView"
-                ></com.chaos.view.PinView>
+                />
             <Button
                 android:id="@+id/farmer_login"
                 android:layout_marginTop="25dp"
@@ -88,8 +85,18 @@
                 android:text="Login"
                 android:textColor="@color/black"
                 android:textSize="20dp"
+                android:enabled="false"
                 android:layout_gravity="center_horizontal"/>
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:indeterminateTint="#08F612"
+                android:visibility="gone"
+                />
         </LinearLayout>
+
 
     </ScrollView>
 

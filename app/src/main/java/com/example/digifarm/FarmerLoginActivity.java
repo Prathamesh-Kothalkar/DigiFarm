@@ -37,7 +37,7 @@ public class FarmerLoginActivity extends AppCompatActivity {
                     Matcher phoneMatch=regexPhone.matcher(mobile);
                     if(phoneMatch.matches()){
                         //Toast.makeText(FarmerLoginActivity.this, "Yes", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(FarmerLoginActivity.this,"Otp sended to Mobile Number",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FarmerLoginActivity.this,"Otp sended",Toast.LENGTH_SHORT).show();
                         Intent in = new Intent(FarmerLoginActivity.this,FarmerOtpActivity.class);
                         startActivity(in);
                     }

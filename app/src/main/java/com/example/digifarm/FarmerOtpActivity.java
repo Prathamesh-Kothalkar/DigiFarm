@@ -17,7 +17,7 @@ public class FarmerOtpActivity extends AppCompatActivity {
        login.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent in = new Intent(FarmerOtpActivity.this,FarmerActivity.class);
+               Intent in = new Intent(FarmerOtpActivity.this,FarmerLoginActivity.class);
                startActivity(in);
                finish();
            }

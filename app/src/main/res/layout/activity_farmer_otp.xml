@@ -14,19 +14,61 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
-                android:layout_marginTop="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:src="@drawable/otp"
                 android:layout_gravity="center_horizontal"/>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:helperTextEnabled="true"
+                app:helperText="without +91"
+                app:helperTextTextColor="#E81708"
+                android:layout_marginTop="25dp"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:hint="Enter Number"
+                    android:textColor="@color/black"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/getOtp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send an Otp"
+                android:textColor="#00137C"
+                android:layout_gravity="center_horizontal"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                />
+            <Button
+                android:id="@+id/resendOtp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resend Otp"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                />
+
+
             <com.chaos.view.PinView
                 android:id="@+id/pinview"
-                app:itemCount="4"
-                app:itemWidth="50dp"
-                app:itemHeight="50dp"
+                app:itemCount="6"
+                app:itemWidth="40dp"
+                app:itemHeight="40dp"
                 android:gravity="center"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:itemBackground="@color/white"
@@ -44,6 +86,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Login"
+                android:textColor="@color/black"
+                android:textSize="20dp"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
 

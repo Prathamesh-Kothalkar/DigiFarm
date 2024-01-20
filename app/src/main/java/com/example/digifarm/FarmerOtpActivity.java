@@ -59,9 +59,9 @@ public class FarmerOtpActivity extends AppCompatActivity {
                Pattern regexMobile=Pattern.compile("\\+91[789]{1}[0-9]{9}");
                Matcher match = regexMobile.matcher(phone);
                if(match.matches()){
-                   otp.setEnabled(true);
+
                     setInProgress(true);
-                   login.setEnabled(true);
+
                    showToast("Wait Verify");
                    sendOtp(phone,false);
                }
@@ -141,6 +141,8 @@ public class FarmerOtpActivity extends AppCompatActivity {
                         verificationCode =s;
                         resendingToken=forceResendingToken;
                         showToast("Otp Sended");
+                        otp.setEnabled(true);
+                        login.setEnabled(true);
                         setInProgress(false);
                         resend.setEnabled(true);
 

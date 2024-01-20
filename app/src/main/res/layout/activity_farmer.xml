@@ -22,5 +22,11 @@
             android:textAlignment="center"
             android:text="Welcome Farmer Product is in Work"
             android:textSize="25dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:id="@+id/signout"
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

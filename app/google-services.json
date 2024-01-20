@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "573182432765",
+    "project_id": "digifarm-76203",
+    "storage_bucket": "digifarm-76203.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573182432765:android:993d8d466fe712fa34f594",
+        "android_client_info": {
+          "package_name": "com.example.digifarm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPkDuxNHfKed8SH9XyU3xhhPHOC4mLnPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

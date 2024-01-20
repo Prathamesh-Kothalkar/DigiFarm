@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -32,6 +33,7 @@ public class FarmerOtpActivity extends AppCompatActivity {
     ProgressBar pb;
     PinView otp;
     TextInputEditText mobile;
+    CountDownTimer resendCountDownTimer;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     long timeOutSecond=60L;
@@ -49,7 +51,7 @@ public class FarmerOtpActivity extends AppCompatActivity {
          otp=findViewById(R.id.pinview);
          mobile= findViewById(R.id.phoneNumber);
 
-
+        resend.setEnabled(false);
         next.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -80,6 +82,31 @@ public class FarmerOtpActivity extends AppCompatActivity {
                 setInProgress(true);
             }
         });
+
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setInProgress(true);
+                String phone=mobile.getText().toString();
+                Pattern regexMobile=Pattern.compile("\\+91[789]{1}[0-9]{9}");
+                Matcher match = regexMobile.matcher(phone);
+                if(match.matches()){
+                    otp.setEnabled(true);
+                    setInProgress(true);
+                    login.setEnabled(true);
+                    showToast("Wait Verify");
+                    sendOtp(phone,true);
+                    resend.setEnabled(false);
+
+                    // Start the countdown timer
+                    startResendCountdown();
+                }
+                else{
+                    showToast("Invalid Number");
+                    setInProgress(false);
+                }
+            }
+        });
     }
 
     void showToast(String msg){
@@ -102,6 +129,10 @@ public class FarmerOtpActivity extends AppCompatActivity {
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         showToast("Verification Failed");
                         setInProgress(false);
+
+                        if (resendCountDownTimer != null) {
+                            resendCountDownTimer.cancel();
+                        }
                     }
 
                     @Override
@@ -111,6 +142,11 @@ public class FarmerOtpActivity extends AppCompatActivity {
                         resendingToken=forceResendingToken;
                         showToast("Otp Sended");
                         setInProgress(false);
+                        resend.setEnabled(true);
+
+                        if (resendCountDownTimer != null) {
+                            resendCountDownTimer.cancel();
+                        }
                     }
                 });
         if(isResend){
@@ -148,4 +184,21 @@ public class FarmerOtpActivity extends AppCompatActivity {
         });
 
     }
+
+    void startResendCountdown() {
+        resendCountDownTimer = new CountDownTimer(timeOutSecond * 1000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                // You can update UI to show the countdown (optional)
+                long secondsRemaining = millisUntilFinished / 1000;
+                resend.setText("Resend in " + secondsRemaining + "s");
+            }
+
+            public void onFinish() {
+                // Enable the resend button when the timer finishes
+                resend.setEnabled(true);
+                resend.setText("Resend");
+            }
+        }.start();
+    }
+
 }

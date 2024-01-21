@@ -38,7 +38,7 @@
             <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="I am Framer"
+            android:text="I am Farmer"
             android:textSize="25sp"
             android:layout_marginTop="220dp"
             android:textAlignment="center"/>

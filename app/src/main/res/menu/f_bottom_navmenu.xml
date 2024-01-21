@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24"
+        android:id="@+id/fhome"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Care Taker"
+        android:icon="@drawable/baseline_health_and_safety_24"
+        android:id="@+id/fcaretaker"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addb"
+        android:title="Add"
+        android:icon="@drawable/baseline_add_24" />
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Agri Shop"
+        android:icon="@drawable/baseline_shopping_basket_24"
+        android:id="@+id/fagrishop"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Profile"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:id="@+id/fprofile"/>
+</menu>

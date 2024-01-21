@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:id="@+id/ss"
             android:text="Welcome Farmer Product is in Work"
             android:textSize="25dp"/>
         <Button
@@ -28,5 +29,10 @@
             android:text="Logout"
             android:id="@+id/signout"
             android:layout_gravity="center_horizontal"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get"
+            android:id="@+id/getData"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

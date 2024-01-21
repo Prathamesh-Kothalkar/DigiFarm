@@ -6,15 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
-import java.util.regex.*;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,26 +19,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-import org.w3c.dom.Text;
-
-public class FarmerLoginActivity extends AppCompatActivity {
+public class CustomerLoginActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     DatabaseReference usersRef = database.getReference("users"); // "users" is the name of the node in the database
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_farmer_login);
-        Button nextButton = findViewById(R.id.NextButton);
-        TextInputEditText tname = findViewById(R.id.textFieldName);
+        setContentView(R.layout.activity_customer_login);
+        Button nextButton = findViewById(R.id.CustNextButton);
+        TextInputEditText tname = findViewById(R.id.textFieldCustName);
 
         String cities[]={"Jalgaon","Pune","Chh Shambhaji Nagar","Jalna","Buldhana"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.cities, cities);
 
         // get reference to the autocomplete text view
-        AutoCompleteTextView autocompleteTV = findViewById(R.id.city);
+        AutoCompleteTextView autocompleteTV = findViewById(R.id.Custcity);
 
         // set adapter to the autocomplete tv to the arrayAdapter
         autocompleteTV.setAdapter(arrayAdapter);
@@ -56,11 +51,10 @@ public class FarmerLoginActivity extends AppCompatActivity {
                     checkUserExists(phoneNumber, name,city);
 
                 } else {
-                    Toast.makeText(FarmerLoginActivity.this, "Name and city cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomerLoginActivity.this, "Name and city cannot be empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 
     private void checkUserExists(String phoneNumber, String name, String city) {
@@ -70,8 +64,8 @@ public class FarmerLoginActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             // User with the same phone number already exists
-                            Toast.makeText(FarmerLoginActivity.this, "User with the same phone number already exists", Toast.LENGTH_SHORT).show();
-                            Intent in = new Intent(FarmerLoginActivity.this, FarmerActivity.class);
+                            Toast.makeText(CustomerLoginActivity.this, "User with the same phone number already exists", Toast.LENGTH_SHORT).show();
+                            Intent in = new Intent(CustomerLoginActivity.this, MainActivity.class);
                             startActivity(in);
                             finish();
                         } else {
@@ -93,14 +87,14 @@ public class FarmerLoginActivity extends AppCompatActivity {
         // Create a unique key for each user
         String userId = usersRef.push().getKey();
         // Create a User object
-        User user = new User(phoneNumber,name,city,"Farmer");
+        User user = new User(phoneNumber,name,city,"Customer");
         // Store user data in the "users" node in Firebase
         usersRef.child(userId).setValue(user);
 
-        Toast.makeText(FarmerLoginActivity.this, "User data stored in Firebase", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CustomerLoginActivity.this, "User data stored in Firebase", Toast.LENGTH_SHORT).show();
 
         // Move to the next activity
-        Intent in = new Intent(FarmerLoginActivity.this, FarmerActivity.class);
+        Intent in = new Intent(CustomerLoginActivity.this, MainActivity.class);
         startActivity(in);
         finish();
     }

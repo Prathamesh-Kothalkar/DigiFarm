@@ -12,9 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.concurrent.TimeUnit;
-import java.util.regex.*;
-
 import com.chaos.view.PinView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,7 +28,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class FarmerOtpActivity extends AppCompatActivity {
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class CustomerOtpActivity extends AppCompatActivity {
+
     Button login;
     Button next;
     TextView resend;
@@ -39,7 +41,6 @@ public class FarmerOtpActivity extends AppCompatActivity {
     PinView otp;
     TextInputEditText mobile;
     CountDownTimer resendCountDownTimer;
-
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     long timeOutSecond = 60L;
     String verificationCode;
@@ -50,19 +51,19 @@ public class FarmerOtpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_farmer_otp);
-        login = findViewById(R.id.farmer_login);
-        next = findViewById(R.id.getOtp);
-        resend = findViewById(R.id.sendAgain);
-        pb = findViewById(R.id.loading);
-        otp = findViewById(R.id.pinview);
-        mobile = findViewById(R.id.phoneNumber);
+        setContentView(R.layout.activity_customer_otp);
+        login = findViewById(R.id.customer_login);
+        next = findViewById(R.id.getCustOtp);
+        resend = findViewById(R.id.sendCustAgain);
+        pb = findViewById(R.id.processing);
+        otp = findViewById(R.id.custpinview);
+        mobile = findViewById(R.id.custNumber);
 
         resend.setEnabled(false);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = mobile.getText().toString();
+                String phone = "+91"+mobile.getText().toString();
                 Pattern regexMobile = Pattern.compile("\\+91[789]{1}[0-9]{9}");
                 Matcher match = regexMobile.matcher(phone);
                 if (match.matches()) {
@@ -91,7 +92,7 @@ public class FarmerOtpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setInProgress(true);
-                String phone = mobile.getText().toString();
+                String phone ="+91"+mobile.getText().toString();
                 Pattern regexMobile = Pattern.compile("\\+91[789]{1}[0-9]{9}");
                 Matcher match = regexMobile.matcher(phone);
                 if (match.matches()) {
@@ -110,10 +111,11 @@ public class FarmerOtpActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     void showToast(String msg) {
-        Toast.makeText(FarmerOtpActivity.this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(CustomerOtpActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     void sendOtp(String mobile, boolean isResend) {
@@ -143,7 +145,7 @@ public class FarmerOtpActivity extends AppCompatActivity {
                         super.onCodeSent(s, forceResendingToken);
                         verificationCode = s;
                         resendingToken = forceResendingToken;
-                        showToast("Otp Send Suc");
+                        showToast("Otp Send Successfully");
                         otp.setEnabled(true);
                         login.setEnabled(true);
                         setInProgress(false);
@@ -185,7 +187,6 @@ public class FarmerOtpActivity extends AppCompatActivity {
         });
 
     }
-
     void startResendCountdown() {
         resendCountDownTimer = new CountDownTimer(timeOutSecond * 1000, 1000) {
             public void onTick(long millisUntilFinished) {
@@ -209,11 +210,11 @@ public class FarmerOtpActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             showToast("Welcome Back");
-                            Intent in = new Intent(FarmerOtpActivity.this, FarmerActivity.class);
+                            Intent in = new Intent(CustomerOtpActivity.this,MainActivity.class);
                             startActivity(in);
                             finish();
                         } else {
-                            Intent in = new Intent(FarmerOtpActivity.this, FarmerLoginActivity.class);
+                            Intent in = new Intent(CustomerOtpActivity.this, CustomerLoginActivity.class);
                             startActivity(in);
                             finish();
                         }
@@ -225,5 +226,4 @@ public class FarmerOtpActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

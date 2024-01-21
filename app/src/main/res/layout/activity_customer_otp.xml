@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".CustomerOtpActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_marginTop="100dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/otp"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:helperTextEnabled="true"
+                app:helperText="with +91"
+                app:helperTextTextColor="#E81708"
+                android:layout_marginTop="25dp"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/custNumber"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:hint="Enter Number"
+                    android:textColor="@color/black"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/getCustOtp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send an Otp"
+                android:textColor="#00137C"
+                android:layout_gravity="center_horizontal"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                />
+            <TextView
+                android:id="@+id/sendCustAgain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Can't get otp? Send Again"
+                android:textAlignment="center"
+                android:textColor="#470C07"/>
+
+            <com.chaos.view.PinView
+                android:id="@+id/custpinview"
+                android:enabled="false"
+                app:itemCount="6"
+                app:itemWidth="40dp"
+                app:itemHeight="40dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:itemBackground="@color/white"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:inputType="number"
+                android:cursorVisible="true"
+                app:hideLineWhenFilled="false"
+                app:itemRadius="10dp"
+                style="@style/PinWidget.PinView"
+                />
+            <Button
+                android:id="@+id/customer_login"
+                android:layout_marginTop="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:enabled="false"
+                android:layout_gravity="center_horizontal"/>
+            <ProgressBar
+                android:id="@+id/processing"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:indeterminateTint="#08F612"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

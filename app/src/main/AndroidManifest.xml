@@ -13,6 +13,12 @@
         android:theme="@style/Theme.DigiFarm"
         tools:targetApi="31">
         <activity
+            android:name=".CustomerLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerOtpActivity"
+            android:exported="false" />
+        <activity
             android:name=".FarmerOtpActivity"
             android:exported="false" />
         <activity

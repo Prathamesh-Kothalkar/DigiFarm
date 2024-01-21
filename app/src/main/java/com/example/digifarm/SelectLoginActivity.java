@@ -33,7 +33,7 @@ public class SelectLoginActivity extends AppCompatActivity {
         customer_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(SelectLoginActivity.this,MainActivity.class);
+                Intent in = new Intent(SelectLoginActivity.this,CustomerOtpActivity.class);
                 startActivity(in);
                 finish();
             }

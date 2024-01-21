@@ -82,7 +82,7 @@ public class FarmerOtpActivity extends AppCompatActivity {
                 pb.setVisibility(View.GONE);
                 String in_otp = otp.getText().toString();
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, in_otp);
-                signIn(credential, mobile.getText().toString());
+                signIn(credential,"+91"+mobile.getText().toString());
                 setInProgress(true);
             }
         });
@@ -91,7 +91,7 @@ public class FarmerOtpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setInProgress(true);
-                String phone = mobile.getText().toString();
+                String phone = "+91"+mobile.getText().toString();
                 Pattern regexMobile = Pattern.compile("\\+91[789]{1}[0-9]{9}");
                 Matcher match = regexMobile.matcher(phone);
                 if (match.matches()) {

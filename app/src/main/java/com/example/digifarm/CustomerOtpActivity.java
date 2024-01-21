@@ -83,7 +83,7 @@ public class CustomerOtpActivity extends AppCompatActivity {
                 pb.setVisibility(View.GONE);
                 String in_otp = otp.getText().toString();
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, in_otp);
-                signIn(credential, mobile.getText().toString());
+                signIn(credential,"+91"+mobile.getText().toString());
                 setInProgress(true);
             }
         });

@@ -149,7 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Logout"
-                    android:id="@+id/logoutButton"
+                    android:id="@+id/FarmerlogoutButton"
                     android:layout_marginTop="10dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:paddingStart="8dp"

@@ -62,7 +62,7 @@ public class FarmerOtpActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = mobile.getText().toString();
+                String phone = "+91"+mobile.getText().toString();
                 Pattern regexMobile = Pattern.compile("\\+91[789]{1}[0-9]{9}");
                 Matcher match = regexMobile.matcher(phone);
                 if (match.matches()) {

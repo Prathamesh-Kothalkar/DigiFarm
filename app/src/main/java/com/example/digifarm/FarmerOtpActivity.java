@@ -25,6 +25,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class FarmerOtpActivity extends AppCompatActivity {
     Button login;
@@ -36,49 +41,48 @@ public class FarmerOtpActivity extends AppCompatActivity {
     CountDownTimer resendCountDownTimer;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    long timeOutSecond=60L;
+    long timeOutSecond = 60L;
     String verificationCode;
     PhoneAuthProvider.ForceResendingToken resendingToken;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference usersRef = database.getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_otp);
-         login=findViewById(R.id.farmer_login);
-         next=findViewById(R.id.getOtp);
-         resend=findViewById(R.id.sendAgain);
-        pb= findViewById(R.id.loading);
-         otp=findViewById(R.id.pinview);
-         mobile= findViewById(R.id.phoneNumber);
+        login = findViewById(R.id.farmer_login);
+        next = findViewById(R.id.getOtp);
+        resend = findViewById(R.id.sendAgain);
+        pb = findViewById(R.id.loading);
+        otp = findViewById(R.id.pinview);
+        mobile = findViewById(R.id.phoneNumber);
 
         resend.setEnabled(false);
         next.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               String phone=mobile.getText().toString();
-               Pattern regexMobile=Pattern.compile("\\+91[789]{1}[0-9]{9}");
-               Matcher match = regexMobile.matcher(phone);
-               if(match.matches()){
-
+            @Override
+            public void onClick(View v) {
+                String phone = mobile.getText().toString();
+                Pattern regexMobile = Pattern.compile("\\+91[789]{1}[0-9]{9}");
+                Matcher match = regexMobile.matcher(phone);
+                if (match.matches()) {
                     setInProgress(true);
-
-                   showToast("Wait Verify");
-                   sendOtp(phone,false);
-               }
-               else{
-                   showToast("Invalid Number");
-                   setInProgress(false);
-               }
-           }
-       });
+                    showToast("Wait Verify");
+                    sendOtp(phone, false);
+                } else {
+                    showToast("Invalid Number");
+                    setInProgress(false);
+                }
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pb.setVisibility(View.GONE);
-                String in_otp=otp.getText().toString();
-                PhoneAuthCredential credential =PhoneAuthProvider.getCredential(verificationCode,in_otp);
-                signIn(credential);
+                String in_otp = otp.getText().toString();
+                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, in_otp);
+                signIn(credential, mobile.getText().toString());
                 setInProgress(true);
             }
         });
@@ -87,21 +91,20 @@ public class FarmerOtpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setInProgress(true);
-                String phone=mobile.getText().toString();
-                Pattern regexMobile=Pattern.compile("\\+91[789]{1}[0-9]{9}");
+                String phone = mobile.getText().toString();
+                Pattern regexMobile = Pattern.compile("\\+91[789]{1}[0-9]{9}");
                 Matcher match = regexMobile.matcher(phone);
-                if(match.matches()){
+                if (match.matches()) {
                     otp.setEnabled(true);
                     setInProgress(true);
                     login.setEnabled(true);
-                    showToast("Wait Verify");
-                    sendOtp(phone,true);
+                    showToast("Wait for Verification");
+                    sendOtp(phone, true);
                     resend.setEnabled(false);
 
                     // Start the countdown timer
                     startResendCountdown();
-                }
-                else{
+                } else {
                     showToast("Invalid Number");
                     setInProgress(false);
                 }
@@ -109,19 +112,19 @@ public class FarmerOtpActivity extends AppCompatActivity {
         });
     }
 
-    void showToast(String msg){
+    void showToast(String msg) {
         Toast.makeText(FarmerOtpActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    void sendOtp(String mobile,boolean isResend){
-        PhoneAuthOptions.Builder builder =PhoneAuthOptions.newBuilder(mAuth)
+    void sendOtp(String mobile, boolean isResend) {
+        PhoneAuthOptions.Builder builder = PhoneAuthOptions.newBuilder(mAuth)
                 .setPhoneNumber(mobile)
                 .setTimeout(timeOutSecond, TimeUnit.SECONDS)
                 .setActivity(this)
                 .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                        signIn(phoneAuthCredential);
+                        signIn(phoneAuthCredential,mobile);
                         setInProgress(true);
                     }
 
@@ -138,9 +141,9 @@ public class FarmerOtpActivity extends AppCompatActivity {
                     @Override
                     public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         super.onCodeSent(s, forceResendingToken);
-                        verificationCode =s;
-                        resendingToken=forceResendingToken;
-                        showToast("Otp Sended");
+                        verificationCode = s;
+                        resendingToken = forceResendingToken;
+                        showToast("Otp Send Suc");
                         otp.setEnabled(true);
                         login.setEnabled(true);
                         setInProgress(false);
@@ -151,37 +154,33 @@ public class FarmerOtpActivity extends AppCompatActivity {
                         }
                     }
                 });
-        if(isResend){
+        if (isResend) {
             PhoneAuthProvider.verifyPhoneNumber(builder.setForceResendingToken(resendingToken).build());
-        }
-        else{
+        } else {
             PhoneAuthProvider.verifyPhoneNumber(builder.build());
         }
     }
 
-    void setInProgress(Boolean inProgress){
-        if(inProgress){
+    void setInProgress(Boolean inProgress) {
+        if (inProgress) {
             pb.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             pb.setVisibility(View.INVISIBLE);
         }
     }
 
-    void signIn(PhoneAuthCredential phoneAuthCredential){
+    void signIn(PhoneAuthCredential phoneAuthCredential, String mobile) {
         //login part
         setInProgress(true);
         mAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-               if(task.isSuccessful()){
-                   Intent in = new Intent(FarmerOtpActivity.this,FarmerLoginActivity.class);
-                   startActivity(in);
-                   finish();
-               }
-               else{
-                   showToast("Otp verification Failed");
-                   setInProgress(false);
-               }
+                if (task.isSuccessful()) {
+                    checkUser(mobile);
+                } else {
+                    showToast("Otp verification Failed");
+                    setInProgress(false);
+                }
             }
         });
 
@@ -201,6 +200,30 @@ public class FarmerOtpActivity extends AppCompatActivity {
                 resend.setText("Resend");
             }
         }.start();
+    }
+
+    void checkUser(String phoneNumber) {
+        usersRef.orderByChild("phoneNumber").equalTo(phoneNumber)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            showToast("Welcome Back");
+                            Intent in = new Intent(FarmerOtpActivity.this, FarmerActivity.class);
+                            startActivity(in);
+                            finish();
+                        } else {
+                            Intent in = new Intent(FarmerOtpActivity.this, FarmerLoginActivity.class);
+                            startActivity(in);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
 }

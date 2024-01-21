@@ -36,9 +36,8 @@ public class FarmerLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_farmer_login);
         Button nextButton = findViewById(R.id.NextButton);
         TextInputEditText tname = findViewById(R.id.textFieldName);
-        // TextInputEditText tcity=findViewById(R.id.textFieldCity);
 
-        String cities[]={"Jalgaon","Pune","Shambhaji Nagar","Jalna"};
+        String cities[]={"Jalgaon","Pune","Chh Shambhaji Nagar","Jalna","Buldhana"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.cities, cities);
 
         // get reference to the autocomplete text view
@@ -54,7 +53,6 @@ public class FarmerLoginActivity extends AppCompatActivity {
                 String phoneNumber = mAuth.getCurrentUser().getPhoneNumber();
                 // Check if name and city are not empty before storing
                 if (!name.isEmpty() && !city.isEmpty()) {
-
                     checkUserExists(phoneNumber, name,city);
 
                 } else {
@@ -94,10 +92,8 @@ public class FarmerLoginActivity extends AppCompatActivity {
     private void storeUserData(String phoneNumber, String name, String city) {
         // Create a unique key for each user
         String userId = usersRef.push().getKey();
-
         // Create a User object
-        User user = new User(phoneNumber, name,city);
-
+        User user = new User(phoneNumber,name,city,"Farmer");
         // Store user data in the "users" node in Firebase
         usersRef.child(userId).setValue(user);
 

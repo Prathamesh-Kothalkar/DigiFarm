@@ -85,7 +85,7 @@ public class CustomerLoginActivity extends AppCompatActivity {
 
     private void storeUserData(String phoneNumber, String name, String city) {
         // Create a unique key for each user
-        String userId = usersRef.push().getKey();
+        String userId = mAuth.getCurrentUser().getUid();
         // Create a User object
         User user = new User(phoneNumber,name,city,"Customer");
         // Store user data in the "users" node in Firebase

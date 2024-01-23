@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.TotpSecret;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,13 +34,35 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    if (mAuth.getCurrentUser() != null) {
-                        Intent in = new Intent(SplashActivity.this, FarmerActivity.class);
-                        startActivity(in);
-                    } else {
-                        Intent in = new Intent(SplashActivity.this, SelectLoginActivity.class);
-                        startActivity(in);
-                    }
+//                    if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().getUid() != null) {
+//
+//                        databaseReference=FirebaseDatabase.getInstance().getReference("users/"+mAuth.getCurrentUser().getUid().toString());
+//                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                if(snapshot.exists()){
+//                                    User user = snapshot.getValue(User.class);
+//                                    if("Farmer".equals(user.getType())){
+//                                        Intent in = new Intent(SplashActivity.this, FarmerActivity.class);
+//                                        startActivity(in);
+//                                    }
+//                                    else{
+//                                        Intent in = new Intent(SplashActivity.this, MainActivity.class);
+//                                        startActivity(in);
+//                                    }
+//                                    finish();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//                                //error
+//                            }
+//                        });
+//
+//                    } else {
+                    Intent in = new Intent(SplashActivity.this, SelectLoginActivity.class);
+                    startActivity(in);
                     finish();
                 }
             }

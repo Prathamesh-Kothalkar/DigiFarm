@@ -2,11 +2,23 @@ package com.example.digifarm;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +35,13 @@ public class FarmerHomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private FirebaseUser currentUser;
+
+    TextView namex;
 
     public FarmerHomeFragment() {
         // Required empty public constructor
@@ -59,6 +78,41 @@ public class FarmerHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_farmer_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_farmer_home, container, false);
+        namex=view.findViewById(R.id.f_name);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            //String uid = currentUser.getUid();
+            Log.d("UID", "Current UID: " + uid);
+
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+uid);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            User user=snapshot.getValue(User.class);
+                            namex.setText(user.getName());
+                        }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle errors
+
+                    Toast.makeText(getActivity(), "Failed to read user data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // No user is signed in
+            Toast.makeText(getActivity(), "No user is signed in", Toast.LENGTH_SHORT).show();
+        }
+
+
+        return view;
     }
 }

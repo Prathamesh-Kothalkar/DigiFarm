@@ -91,7 +91,9 @@ public class FarmerLoginActivity extends AppCompatActivity {
 
     private void storeUserData(String phoneNumber, String name, String city) {
         // Create a unique key for each user
-        String userId = usersRef.push().getKey();
+        //String userId = usersRef.push().getKey();
+        String userId=mAuth.getCurrentUser().getUid();
+        //Toast.makeText(FarmerLoginActivity.this,userId,Toast.LENGTH_SHORT).show();
         // Create a User object
         User user = new User(phoneNumber,name,city,"Farmer");
         // Store user data in the "users" node in Firebase

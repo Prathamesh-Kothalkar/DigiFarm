@@ -5,6 +5,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="store_description">Welcome to Our DigiFarm (Digital Farmer)! Explore a wide range of fresh and quality Vegetables and Fruits to meet all your daily needs.</string>
+    <string name="customer_support_mobile_number">Phone: +91 (123) 456-789</string>
+    <string name="customer_support_email">Email: support@digifarm.com</string>
+    <string name="address">Visit Us at</string>
+    <string name="company_address">National Highway 06, Goverment Polytechnic,Jalgoan,425001</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -17,6 +17,12 @@
         android:orientation="vertical"
         android:gravity="center">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tell About Yourself"
+            android:textSize="25dp"
+            android:textAlignment="center"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

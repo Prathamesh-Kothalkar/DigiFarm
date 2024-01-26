@@ -10,6 +10,7 @@
     <string name="customer_support_email">Email: support@digifarm.com</string>
     <string name="address">Visit Us at</string>
     <string name="company_address">National Highway 06, Goverment Polytechnic,Jalgoan,425001</string>
+    <string name="app_info">A digital way to buy and sell Vegetables...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

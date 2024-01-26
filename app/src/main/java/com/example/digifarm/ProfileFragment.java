@@ -92,7 +92,8 @@ public class ProfileFragment extends Fragment {
         supportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("Support Button clicked");
+                Intent intent = new Intent(getContext(),SupportActivity.class);
+                startActivity(intent);
             }
         });
 

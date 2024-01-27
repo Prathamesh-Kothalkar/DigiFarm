@@ -27,6 +27,7 @@ public class FarmerProfileFragment extends Fragment {
 
     Button logout;
     Button support;
+    Button contact;
     FirebaseAuth mAuth;
     Button tcButton;
 
@@ -44,6 +45,7 @@ public class FarmerProfileFragment extends Fragment {
         name=view.findViewById(R.id.farmer_name);
         mobile=view.findViewById(R.id.farmer_mobile);
         support=view.findViewById(R.id.supportButton);
+        contact=view.findViewById(R.id.myContactButton);
         logout=view.findViewById(R.id.FarmerlogoutButton);
         tcButton=view.findViewById(R.id.tcButton);
         mAuth=FirebaseAuth.getInstance();
@@ -92,6 +94,14 @@ public class FarmerProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(getContext(),TermsActivity.class);
+                startActivity(in);
+            }
+        });
+
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getContext(), MyContactActivity.class);
                 startActivity(in);
             }
         });

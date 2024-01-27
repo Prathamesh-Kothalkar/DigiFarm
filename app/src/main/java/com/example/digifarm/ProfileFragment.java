@@ -85,7 +85,9 @@ public class ProfileFragment extends Fragment {
         myContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("My Contact clicked");
+
+                Intent intent = new Intent(getContext(), MyContactActivity.class);
+                startActivity(intent);
             }
         });
 

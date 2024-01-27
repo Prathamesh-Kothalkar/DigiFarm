@@ -100,7 +100,8 @@ public class ProfileFragment extends Fragment {
         tcButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("Terms & Conditions Clicked");
+                Intent intent = new Intent(getContext(),TermsActivity.class);
+                startActivity(intent);
             }
         });
 

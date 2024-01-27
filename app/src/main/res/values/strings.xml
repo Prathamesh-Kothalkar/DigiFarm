@@ -13,4 +13,6 @@
     <string name="app_info">A digital way to buy and sell Vegetables...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tc1">Welcome to DigiFarm. This App is provided as a service to our visitors and may be used for informational purposes only. Because the Terms and Conditions contain legal obligations, please read them carefully.</string>
+    <string name="tc2">By using the Site web sites you agree to indemnify us and affiliated entities (collectively "Indemnities") and hold them harmless from any and all claims and expenses, including (without limitation) attorneys fees, arising from your use of the Site web sites, your use of the Products and Services, or your submission of ideas and/or related materials to us or from any persons use of any ID, membership or password you maintain with any portion of the Site, regardless of whether such use is authorized by you.</string>
 </resources>

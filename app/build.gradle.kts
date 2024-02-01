@@ -50,4 +50,5 @@ dependencies {
     implementation("io.github.chaosleung:pinview:1.4.4")
 //    implementation("com.airbnb.android:lottie:$lottieVersion")
     implementation("com.airbnb.android:lottie:3.4.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 }

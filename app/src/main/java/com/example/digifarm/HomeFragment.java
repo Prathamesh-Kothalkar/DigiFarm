@@ -2,6 +2,7 @@ package com.example.digifarm;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -10,17 +11,22 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class HomeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -31,6 +37,12 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView city;
+    ProgressBar pb;
+
+    FirebaseAuth mAuth;
+    DatabaseReference databaseReference;
 
     private ViewPager bannerViewPager;
     private List<Integer> bannerImages;
@@ -44,15 +56,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -65,10 +68,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -76,7 +75,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         bannerViewPager = view.findViewById(R.id.bannerViewPager);
-
+        city=view.findViewById(R.id.city);
+        pb=view.findViewById(R.id.wait);
         // Initialize banner images
         bannerImages = new ArrayList<>();
         bannerImages.add(R.drawable.banner1);
@@ -106,6 +106,26 @@ public class HomeFragment extends Fragment {
             }
         }, DELAY_MS, PERIOD_MS);
 
+        //data
+        mAuth=FirebaseAuth.getInstance();
+        databaseReference= FirebaseDatabase.getInstance().getReference("users/"+mAuth.getCurrentUser().getUid());
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    User user = snapshot.getValue(User.class);
+                    setProgess(Boolean.FALSE);
+                    city.setText(user.getCity());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return view;
     }
 
@@ -114,6 +134,15 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         if (timer != null) {
             timer.cancel();
+        }
+    }
+
+    void setProgess(Boolean isVisible){
+        if(isVisible){
+            pb.setVisibility(View.VISIBLE);
+        }
+        else{
+            pb.setVisibility(View.GONE);
         }
     }
 }

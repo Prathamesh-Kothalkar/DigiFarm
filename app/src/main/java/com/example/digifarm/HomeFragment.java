@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.digifarm.model.CategoryModel;
+import com.example.digifarm.model.NewProductModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
@@ -29,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.checkerframework.checker.units.qual.N;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +65,14 @@ public class HomeFragment extends Fragment {
     private final long PERIOD_MS = 2000; // time in milliseconds between successive task executions.
 
     //category recycleview
-    RecyclerView catRecyclerView;
+    RecyclerView catRecyclerView,newProductRecylcerView;
     CategoryAdapter categoryAdapter;
     List<CategoryModel> categoryModelList;
+
+    //newProduct
+    NewProductsAdapter newProductsAdapter;
+    List<NewProductModel> newProductModelList;
+
 
     FirebaseFirestore db;
 
@@ -91,6 +100,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         catRecyclerView= view.findViewById(R.id.rec_category);
+        newProductRecylcerView=view.findViewById(R.id.new_product_rec);
         db=FirebaseFirestore.getInstance();
         bannerViewPager = view.findViewById(R.id.bannerViewPager);
         city=view.findViewById(R.id.city);
@@ -166,6 +176,28 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+
+        //newProduct;
+        newProductRecylcerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        newProductModelList=new ArrayList<>();
+        newProductsAdapter=new NewProductsAdapter(getContext(),newProductModelList);
+        newProductRecylcerView.setAdapter(newProductsAdapter);
+
+        db.collection("NewProduct")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                       if(task.isSuccessful()){
+                           for(QueryDocumentSnapshot document:task.getResult()){
+                               NewProductModel newProductModel=document.toObject(NewProductModel.class);
+                               newProductModelList.add(newProductModel);
+                               newProductsAdapter.notifyDataSetChanged();
+                           }
+                       }
+                    }
+                });
+
         return view;
     }
 

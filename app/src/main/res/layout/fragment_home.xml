@@ -91,6 +91,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="See All"
+                android:textColor="@color/bg"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -144,6 +145,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginRight="8dp"
                         android:text="See All"
+                        android:textColor="@color/bg"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -191,6 +193,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="8dp"
                     android:text="See All"
+                    android:textColor="@color/bg"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </RelativeLayout>

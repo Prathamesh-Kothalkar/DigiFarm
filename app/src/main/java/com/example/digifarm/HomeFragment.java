@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
@@ -14,12 +16,19 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.digifarm.model.CategoryModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +60,13 @@ public class HomeFragment extends Fragment {
     private final long DELAY_MS = 500; // delay in milliseconds before task is to be executed
     private final long PERIOD_MS = 2000; // time in milliseconds between successive task executions.
 
+    //category recycleview
+    RecyclerView catRecyclerView;
+    CategoryAdapter categoryAdapter;
+    List<CategoryModel> categoryModelList;
+
+    FirebaseFirestore db;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -74,6 +90,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        catRecyclerView= view.findViewById(R.id.rec_category);
+        db=FirebaseFirestore.getInstance();
         bannerViewPager = view.findViewById(R.id.bannerViewPager);
         city=view.findViewById(R.id.city);
         pb=view.findViewById(R.id.wait);
@@ -126,6 +144,28 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //category
+
+        catRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        categoryModelList=new ArrayList<>();
+        categoryAdapter =new CategoryAdapter(getActivity(),categoryModelList);
+        catRecyclerView.setAdapter(categoryAdapter);
+
+        db.collection("Category")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                CategoryModel categoryModel=document.toObject(CategoryModel.class);
+                                categoryModelList.add(categoryModel);
+                                categoryAdapter.notifyDataSetChanged();
+
+                            }
+                        }
+                    }
+                });
         return view;
     }
 

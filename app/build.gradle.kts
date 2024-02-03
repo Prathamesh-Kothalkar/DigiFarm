@@ -51,4 +51,7 @@ dependencies {
 //    implementation("com.airbnb.android:lottie:$lottieVersion")
     implementation("com.airbnb.android:lottie:3.4.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    //glider
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

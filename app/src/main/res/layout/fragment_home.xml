@@ -97,6 +97,14 @@
 
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/cat_load"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:indeterminateTint="@color/bg"
+            android:layout_gravity="center"
+            android:visibility="visible"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_category"
             android:layout_width="wrap_content"
@@ -136,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/new_product_name"
                         android:layout_marginLeft="9dp"
-                        android:text="We provide best products." />
+                        android:text="Get most Popular Product that loved by peoples" />
 
                     <TextView
                         android:id="@+id/newProducts_see_all"
@@ -149,6 +157,14 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/new_load"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:indeterminateTint="@color/bg"
+                    android:layout_gravity="center"
+                    android:visibility="visible"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/new_product_rec"
@@ -198,11 +214,18 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
+            <ProgressBar
+                android:id="@+id/popular_load"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/bg"
+                android:visibility="visible"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popular_rec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_margin="7dp"
                 android:layout_marginTop="6dp"
                 android:padding="5dp" />

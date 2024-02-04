@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.digifarm.model.CategoryModel;
 import com.example.digifarm.model.NewProductModel;
+import com.example.digifarm.model.PopularProductModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
@@ -52,7 +53,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     TextView city;
-    ProgressBar pb;
+    ProgressBar pb,pbc,pbn,pbp;
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
@@ -65,7 +66,7 @@ public class HomeFragment extends Fragment {
     private final long PERIOD_MS = 2000; // time in milliseconds between successive task executions.
 
     //category recycleview
-    RecyclerView catRecyclerView,newProductRecylcerView;
+    RecyclerView catRecyclerView,newProductRecylcerView,popProductRecylcerView;
     CategoryAdapter categoryAdapter;
     List<CategoryModel> categoryModelList;
 
@@ -73,6 +74,10 @@ public class HomeFragment extends Fragment {
     NewProductsAdapter newProductsAdapter;
     List<NewProductModel> newProductModelList;
 
+    //popular product;
+
+    PopularProductAdapter popularProductAdapter;
+    List<PopularProductModel> popProductModelList;
 
     FirebaseFirestore db;
 
@@ -101,10 +106,14 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         catRecyclerView= view.findViewById(R.id.rec_category);
         newProductRecylcerView=view.findViewById(R.id.new_product_rec);
+        popProductRecylcerView=view.findViewById(R.id.popular_rec);
         db=FirebaseFirestore.getInstance();
         bannerViewPager = view.findViewById(R.id.bannerViewPager);
         city=view.findViewById(R.id.city);
         pb=view.findViewById(R.id.wait);
+        pbc=view.findViewById(R.id.cat_load);
+        pbn=view.findViewById(R.id.new_load);
+        pbp=view.findViewById(R.id.popular_load);
         // Initialize banner images
         bannerImages = new ArrayList<>();
         bannerImages.add(R.drawable.banner1);
@@ -167,6 +176,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
+                            pbc.setVisibility(View.GONE);
                             for(QueryDocumentSnapshot document : task.getResult()){
                                 CategoryModel categoryModel=document.toObject(CategoryModel.class);
                                 categoryModelList.add(categoryModel);
@@ -189,6 +199,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                        if(task.isSuccessful()){
+                           pbn.setVisibility(View.GONE);
                            for(QueryDocumentSnapshot document:task.getResult()){
                                NewProductModel newProductModel=document.toObject(NewProductModel.class);
                                newProductModelList.add(newProductModel);
@@ -197,6 +208,28 @@ public class HomeFragment extends Fragment {
                        }
                     }
                 });
+
+        //popular product
+        popProductRecylcerView.setLayoutManager(new LinearLayoutManager((getActivity()),RecyclerView.HORIZONTAL,false));
+        popProductModelList=new ArrayList<>();
+        popularProductAdapter= new PopularProductAdapter(getContext(),popProductModelList);
+        popProductRecylcerView.setAdapter(popularProductAdapter);
+        db.collection("Polpular")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            pbp.setVisibility(View.GONE);
+                            for(QueryDocumentSnapshot document:task.getResult()){
+                                PopularProductModel popProductModel=document.toObject(PopularProductModel.class);
+                                popProductModelList.add(popProductModel);
+                                popularProductAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
+
 
         return view;
     }

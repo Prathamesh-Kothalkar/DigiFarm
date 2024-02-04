@@ -4,8 +4,9 @@ import android.media.Image;
 import android.widget.ImageView;
 
 public class Item {
+    String shopname;
     String name;
-    String email;
+
     String number;
     int image;
 
@@ -17,12 +18,12 @@ public class Item {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getShopName() {
+        return shopname;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setShopname(String shopname) {
+        this.shopname = shopname;
     }
 
     public String getNumber() {
@@ -41,9 +42,9 @@ public class Item {
         this.image = image;
     }
 
-    public Item(String name, String email, String number, int image) {
+    public Item(String shopname, String name, String number, int image) {
         this.name = name;
-        this.email = email;
+        this.shopname = shopname;
         this.number = number;
         this.image = image;
     }

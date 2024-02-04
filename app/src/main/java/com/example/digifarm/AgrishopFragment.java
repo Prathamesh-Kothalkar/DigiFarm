@@ -25,21 +25,28 @@ public class AgrishopFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_agrishop, container, false);
         RecyclerView recyclerView=view.findViewById(R.id.recyclerview);
         List<Item> items=new ArrayList<Item>();
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
-        items.add(new Item("John wick","john.wick@email.com","9999999999",R.drawable.profile));
+        items.add(new Item("Pritam Agrishop","Pritam Kharate","8600491186",R.drawable.profile));
+        items.add(new Item("Pritam Agrishop","Pritam Kharate","8600491186",R.drawable.profile));
+        items.add(new Item("Pritam Agrishop","Pritam Kharate","8600491186",R.drawable.profile));
+
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new MyAdapter(getActivity().getApplicationContext(),items ));
 
+
+
+        RecyclerView recyclerView2=view.findViewById(R.id.recyclerview2);
+        List<Item> items2=new ArrayList<Item>();
+        items2.add(new Item("E-Service Center","Rushikesh Kothalkar","8600491186",R.drawable.profile));
+        items2.add(new Item("E-Service Center","Rushikesh Kothalkar","8600491186",R.drawable.profile));
+        items2.add(new Item("E-Service Center","Rushikesh Kothalkar","8600491186",R.drawable.profile));
+
+
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView2.setAdapter(new MyAdapter(getActivity().getApplicationContext(),items2 ));
+
         return view;
+
     }
 }

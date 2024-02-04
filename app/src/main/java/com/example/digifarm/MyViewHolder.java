@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
-    TextView nameView,noView,emailView;
+    TextView nameView,noView,shopNameView;
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView=itemView.findViewById(R.id.fimageView);
-        nameView=itemView.findViewById(R.id.shop_name);
+        shopNameView=itemView.findViewById(R.id.shop_name);
         noView=itemView.findViewById(R.id.shop_no);
-        emailView=itemView.findViewById(R.id.shop_email);
+        nameView=itemView.findViewById(R.id.shop_owner);
 
     }
 }

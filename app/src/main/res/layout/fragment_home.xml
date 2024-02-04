@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/HomeFragment"
     android:background="@color/white"
     tools:context=".HomeFragment">
 
@@ -52,7 +53,8 @@
             <ImageView
                 android:id="@+id/heroImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="15dp"
                 android:rotation="0"
                 android:rotationX="0"
                 android:rotationY="0"
@@ -144,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/new_product_name"
                         android:layout_marginLeft="9dp"
-                        android:text="Get most Popular Product that loved by peoples" />
+                        android:text="Newly Added Products" />
 
                     <TextView
                         android:id="@+id/newProducts_see_all"
@@ -200,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/popular_products"
                     android:layout_marginLeft="9dp"
-                    android:text="We provide best products." />
+                    android:text="Product that loved by peoples" />
 
                 <TextView
                     android:id="@+id/popular_see_all"

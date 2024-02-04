@@ -1,6 +1,7 @@
 package com.example.digifarm;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,9 +35,11 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Glide.with(context).load(list.get(position).getImg_url()).into(holder.popImg);
         holder.popName.setText(list.get(position).getName());
         holder.popPrice.setText(String.valueOf(list.get(position).getRupees()));
+
     }
 
     @Override
@@ -55,4 +58,5 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
             popPrice=itemView.findViewById(R.id.pop_price);
         }
     }
+
 }

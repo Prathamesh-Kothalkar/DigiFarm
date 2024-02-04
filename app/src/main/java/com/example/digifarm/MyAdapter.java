@@ -26,8 +26,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.shopNameView.setText(items.get(position).getShopName());
         holder.nameView.setText(items.get(position).getName());
-        holder.emailView.setText(items.get(position).getEmail());
         holder.imageView.setImageResource(items.get(position).getImage());
         holder.noView.setText(items.get(position).getNumber());
     }

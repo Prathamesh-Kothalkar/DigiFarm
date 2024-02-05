@@ -1,6 +1,7 @@
 package com.example.digifarm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,15 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
         Glide.with(context).load(list.get(position).getImg_url()).into(holder.popImg);
         holder.popName.setText(list.get(position).getName());
         holder.popPrice.setText(String.valueOf(list.get(position).getRupees()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,DetailedActivity.class);
+                intent.putExtra("detailed",list.get(position));
+                context.startActivity(intent);
+            }
+        });
 
     }
 

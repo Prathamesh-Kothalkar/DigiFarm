@@ -1,6 +1,8 @@
 package com.example.digifarm.model;
 
-public class PopularProductModel {
+import java.io.Serializable;
+
+public class PopularProductModel implements Serializable {
     String img_url,name,category;
     int rupees;
 

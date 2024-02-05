@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.digifarm.model.NewProductModel;
+import com.example.digifarm.model.PopularProductModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DetailedActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class DetailedActivity extends AppCompatActivity {
 
     //newProduct
     NewProductModel newProductModel=null;
+    PopularProductModel popularProductModel=null;
 
     public FirebaseFirestore firestore;
 
@@ -32,6 +34,10 @@ public class DetailedActivity extends AppCompatActivity {
         final Object obj=getIntent().getSerializableExtra("detailed");
         if(obj instanceof NewProductModel) {
             newProductModel=(NewProductModel) obj;
+        }
+
+        if(obj instanceof PopularProductModel){
+            popularProductModel=(PopularProductModel) obj;
         }
 
             productName = findViewById(R.id.detail_name);
@@ -49,8 +55,17 @@ public class DetailedActivity extends AppCompatActivity {
                 totalAmount=newProductModel.getRupees();
                 Glide.with(getApplicationContext()).load(newProductModel.getImg_url()).into(productImg);
                 productName.setText(newProductModel.getName());
-                productPrice.setText("Rs/kg: "+String.valueOf(newProductModel.getRupees()));
+                productPrice.setText("Rs/kg: ₹"+String.valueOf(newProductModel.getRupees())+"/-");
                 productCategory.setText(newProductModel.getCategory());
+            }
+
+            //popular product
+            if(popularProductModel!=null){
+                totalAmount=popularProductModel.getRupees();
+                Glide.with(getApplicationContext()).load(popularProductModel.getImg_url()).into(productImg);
+                productName.setText(popularProductModel.getName());
+                productPrice.setText("Rs/kg: ₹"+String.valueOf(popularProductModel.getRupees())+"/-");
+                productCategory.setText(popularProductModel.getCategory());
             }
 
             productInc.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +73,7 @@ public class DetailedActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     count++;
                     productCount.setText(String.valueOf(count));
-                    productTotalPrice.setText(String.valueOf(totalAmount*count));
+                    productTotalPrice.setText(String.valueOf("₹ "+totalAmount*count+"/-"));
                 }
             });
 
@@ -68,7 +83,7 @@ public class DetailedActivity extends AppCompatActivity {
                     if(count!=0) {
                         count--;
                         productCount.setText(String.valueOf(count));
-                        productTotalPrice.setText(String.valueOf(totalAmount*count));
+                        productTotalPrice.setText(String.valueOf("₹ "+totalAmount*count+"/-"));
                     }
                 }
             });

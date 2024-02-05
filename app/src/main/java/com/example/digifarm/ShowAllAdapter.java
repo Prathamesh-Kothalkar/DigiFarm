@@ -1,6 +1,7 @@
 package com.example.digifarm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,18 @@ public class ShowAllAdapter extends RecyclerView.Adapter<ShowAllAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Glide.with(context).load(list.get(position).getImg_url()).into(holder.img);
-        holder.price.setText(String.valueOf(list.get(position).getPrice()));
+        holder.price.setText(String.valueOf("₹"+list.get(position).getPrice()+"/kg"));
         holder.name.setText(list.get(position).getName());
+        holder.category.setText(list.get(position).getCategory());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,DetailedActivity.class);
+                intent.putExtra("detailed",list.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -48,12 +59,13 @@ public class ShowAllAdapter extends RecyclerView.Adapter<ShowAllAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
-        TextView price,name;
+        TextView price,name,category;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             img=itemView.findViewById(R.id.item_image);
             price=itemView.findViewById(R.id.item_cost);
             name=itemView.findViewById(R.id.item_nam);
+            category=itemView.findViewById(R.id.item_cat);
         }
     }
 }

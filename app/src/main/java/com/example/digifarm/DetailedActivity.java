@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.digifarm.model.NewProductModel;
 import com.example.digifarm.model.PopularProductModel;
+import com.example.digifarm.model.ShowAllModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DetailedActivity extends AppCompatActivity {
@@ -21,6 +22,8 @@ public class DetailedActivity extends AppCompatActivity {
     //newProduct
     NewProductModel newProductModel=null;
     PopularProductModel popularProductModel=null;
+
+    ShowAllModel showAllModel=null;
 
     public FirebaseFirestore firestore;
 
@@ -38,6 +41,10 @@ public class DetailedActivity extends AppCompatActivity {
 
         if(obj instanceof PopularProductModel){
             popularProductModel=(PopularProductModel) obj;
+        }
+
+        if(obj instanceof  ShowAllModel){
+            showAllModel=(ShowAllModel) obj;
         }
 
             productName = findViewById(R.id.detail_name);
@@ -66,6 +73,16 @@ public class DetailedActivity extends AppCompatActivity {
                 productName.setText(popularProductModel.getName());
                 productPrice.setText("Rs/kg: ₹"+String.valueOf(popularProductModel.getRupees())+"/-");
                 productCategory.setText(popularProductModel.getCategory());
+            }
+
+            //showallProduct
+
+            if(showAllModel!=null){
+                totalAmount=showAllModel.getPrice();
+                Glide.with(getApplicationContext()).load(showAllModel.getImg_url()).into(productImg);
+                productName.setText(showAllModel.getName());
+                productPrice.setText("Rs/kg: ₹"+String.valueOf(showAllModel.getPrice())+"/-");
+                productCategory.setText(showAllModel.getCategory());
             }
 
             productInc.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 package com.example.digifarm;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -59,6 +60,9 @@ public class HomeFragment extends Fragment {
     private final long DELAY_MS = 500; // delay in milliseconds before task is to be executed
     private final long PERIOD_MS = 2000; // time in milliseconds between successive task executions.
 
+    //seeAll
+    TextView catShowAll,popularShowAll,newProductAll;
+
     //category recycleview
     RecyclerView catRecyclerView,newProductRecylcerView,popProductRecylcerView;
     CategoryAdapter categoryAdapter;
@@ -108,6 +112,9 @@ public class HomeFragment extends Fragment {
         pbc=view.findViewById(R.id.cat_load);
         pbn=view.findViewById(R.id.new_load);
         pbp=view.findViewById(R.id.popular_load);
+        catShowAll=view.findViewById(R.id.category_see_all);
+        popularShowAll=view.findViewById(R.id.popular_see_all);
+        newProductAll=view.findViewById(R.id.newProducts_see_all);
         // Initialize banner images
         bannerImages = new ArrayList<>();
         bannerImages.add(R.drawable.banner1);
@@ -223,6 +230,29 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+
+
+        popularShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                startActivity(intent);
+            }
+        });
+        newProductAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                startActivity(intent);
+            }
+        });
+        catShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         return view;

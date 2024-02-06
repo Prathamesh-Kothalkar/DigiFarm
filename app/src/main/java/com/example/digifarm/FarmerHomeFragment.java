@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,9 +27,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kwabenaberko.newsapilib.NewsApiClient;
+import com.kwabenaberko.newsapilib.models.Article;
+import com.kwabenaberko.newsapilib.models.request.EverythingRequest;
+import com.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;
+import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
+import com.kwabenaberko.newsapilib.models.response.SourcesResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +49,9 @@ public class FarmerHomeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    RecyclerView recyclerView;
+    List<Article> articleList=new ArrayList<>();
+    NewsRecyclerAdapter adapter;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -51,6 +65,7 @@ public class FarmerHomeFragment extends Fragment {
     private FirebaseUser currentUser;
     private TextView cityTextView, weatherTextView,temperatureTextView;
     private RequestQueue requestQueue;
+    View view;
 
     TextView namex;
 
@@ -90,7 +105,7 @@ public class FarmerHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_farmer_home, container, false);
+        view = inflater.inflate(R.layout.fragment_farmer_home, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -130,9 +145,18 @@ public class FarmerHomeFragment extends Fragment {
             // No user is signed in
             Toast.makeText(getActivity(), "No user is signed in", Toast.LENGTH_SHORT).show();
         }
+        recyclerView=view.findViewById(R.id.news_recycler_view);
+        setupRecyclerView();
+        getNews();
+
 
 
         return view;
+    }
+    void setupRecyclerView(){
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter=new NewsRecyclerAdapter(articleList);
+        recyclerView.setAdapter(adapter);
     }
     private void fetchWeatherData(String apiKey, String city) {
         String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
@@ -183,4 +207,36 @@ public class FarmerHomeFragment extends Fragment {
         // Add the request to the RequestQueue
         requestQueue.add(request);
     }
+    void getNews() {
+        NewsApiClient newsApiClient = new NewsApiClient("4091e020a7874fd391da12b7c8e235b2");
+        newsApiClient.getEverything(
+                new EverythingRequest.Builder()
+                        .q("agriculture")
+                        // Query keyword
+                        .language("mr") // Language of articles
+                        // Maximum number of articles
+                        .build(),
+                new NewsApiClient.ArticlesResponseCallback() {
+                    @Override
+                    public void onSuccess(ArticleResponse response) {
+                        requireActivity().runOnUiThread(() -> {
+                            if (response != null && response.getArticles() != null) {
+                                articleList = response.getArticles();
+                                adapter.updateData(articleList);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                Log.i("GetNews", "Response or articles list is null");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        Log.i("GOT Failure", throwable.getMessage());
+                    }
+                }
+        );
+    }
+
+
 }

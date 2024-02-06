@@ -90,14 +90,14 @@
                     android:textColor="?android:textColorSecondary" />
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="40dp"
                 android:orientation="horizontal"
                 android:background="#D1D0CD"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center">
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/dec"
                 android:src="@drawable/minus_solid"
@@ -107,13 +107,13 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/item_count"
                     android:text="0"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textSize="25sp"/>
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:id="@+id/inc"

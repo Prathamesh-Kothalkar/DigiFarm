@@ -1,22 +1,35 @@
 package com.example.digifarm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.digifarm.model.NewProductModel;
 import com.example.digifarm.model.PopularProductModel;
 import com.example.digifarm.model.ShowAllModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class DetailedActivity extends AppCompatActivity {
 
     TextView productName,productPrice,productCategory,productCount,productTotalPrice;
     ImageView productImg,productInc,productDec,backBtn;
+    Button cartBtn;
     int count,totalAmount;
 
     //newProduct
@@ -26,6 +39,7 @@ public class DetailedActivity extends AppCompatActivity {
     ShowAllModel showAllModel=null;
 
     public FirebaseFirestore firestore;
+    public FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +70,7 @@ public class DetailedActivity extends AppCompatActivity {
             productInc = findViewById(R.id.inc);
             productDec = findViewById(R.id.dec);
             backBtn=findViewById(R.id.backbtn);
+            cartBtn=findViewById(R.id.cartBtn);
 
             //New Product
             if(newProductModel!=null){
@@ -105,11 +120,46 @@ public class DetailedActivity extends AppCompatActivity {
                 }
             });
 
+
+            cartBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(totalAmount!=0){
+                        addToCart();
+                    }
+                }
+            });
+
             backBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onBackPressed();
                 }
             });
+    }
+
+    void addToCart(){
+        mAuth=FirebaseAuth.getInstance();
+        String onDate,onTime;
+        Calendar calendar =Calendar.getInstance();
+        SimpleDateFormat currentDate=new SimpleDateFormat("MM dd, yyyy");
+        onDate=currentDate.format(calendar.getTime());
+        SimpleDateFormat currentTime=new SimpleDateFormat("HH:mm:ss a");
+        onTime=currentTime.format(calendar.getTime());
+        final HashMap<String,Object>cartMap =new HashMap<>();
+        cartMap.put("productName",productName.getText().toString());
+        cartMap.put("productPrice",String.valueOf(productPrice.getText()));
+        cartMap.put("totalPrice",String.valueOf(totalAmount*count));
+        cartMap.put("currentTime",onTime);
+        cartMap.put("currentDate",onDate);
+
+        firestore.collection("cart").document(mAuth.getCurrentUser().getUid())
+                .collection("User").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        Toast.makeText(DetailedActivity.this,"Added to cart",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
     }
 }

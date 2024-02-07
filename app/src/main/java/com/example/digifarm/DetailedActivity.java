@@ -124,8 +124,11 @@ public class DetailedActivity extends AppCompatActivity {
             cartBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(totalAmount!=0){
+                    if(count!=0){
                         addToCart();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Please select item Quantity",Toast.LENGTH_SHORT).show();
                     }
                 }
             });

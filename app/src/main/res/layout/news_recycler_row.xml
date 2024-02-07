@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:elevation="4dp"
     android:layout_margin="12dp">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,5 +40,4 @@
                 android:id="@+id/artical_source"/>
         </LinearLayout>
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>

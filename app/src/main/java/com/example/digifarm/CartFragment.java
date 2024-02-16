@@ -2,11 +2,25 @@ package com.example.digifarm;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.digifarm.model.MyCartModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,19 +38,16 @@ public class CartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    RecyclerView recyclerView;
+    MyCartAdapter myCartAdapter;
+    List<MyCartModel> cartModelList;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore firestore;
+
     public CartFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CartFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CartFragment newInstance(String param1, String param2) {
         CartFragment fragment = new CartFragment();
         Bundle args = new Bundle();
@@ -58,7 +69,30 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        recyclerView=view.findViewById(R.id.cart_rec);
+        mAuth=FirebaseAuth.getInstance();
+        firestore=FirebaseFirestore.getInstance();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        cartModelList=new ArrayList<>();
+        myCartAdapter=new MyCartAdapter(getContext(),cartModelList);
+        recyclerView.setAdapter(myCartAdapter);
+
+        firestore.collection("cart").document(mAuth.getCurrentUser().getUid())
+                .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(DocumentSnapshot doc:task.getResult().getDocuments()){
+                                MyCartModel myCartModel=doc.toObject(MyCartModel.class);
+                                cartModelList.add(myCartModel);
+                                myCartAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
+
+        return view ;
     }
 }

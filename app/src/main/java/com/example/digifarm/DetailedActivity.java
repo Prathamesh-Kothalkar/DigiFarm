@@ -152,7 +152,7 @@ public class DetailedActivity extends AppCompatActivity {
         final HashMap<String,Object>cartMap =new HashMap<>();
         cartMap.put("productName",productName.getText().toString());
         cartMap.put("productPrice",String.valueOf(productPrice.getText()));
-        cartMap.put("totalPrice",String.valueOf(totalAmount*count));
+        cartMap.put("totalPrice",totalAmount*count);
         cartMap.put("currentTime",onTime);
         cartMap.put("currentDate",onDate);
 

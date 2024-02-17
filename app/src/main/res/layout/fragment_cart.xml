@@ -64,7 +64,7 @@
 
     <!-- Total Price Section -->
     <TextView
-        android:id="@+id/text_total_price"
+        android:id="@+id/total_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total Price: 0.00"

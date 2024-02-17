@@ -1,15 +1,21 @@
 package com.example.digifarm;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.digifarm.model.MyCartModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +46,8 @@ public class CartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    int overAllTotalAmount;
+    TextView overAllTotaAmount;
     RecyclerView recyclerView;
     MyCartAdapter myCartAdapter;
     List<MyCartModel> cartModelList;
@@ -71,13 +81,17 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         recyclerView=view.findViewById(R.id.cart_rec);
+        overAllTotaAmount=view.findViewById(R.id.total_amount);
         mAuth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
+        LocalBroadcastManager.getInstance(getContext())
+                        .registerReceiver(nMessageReceiver,new IntentFilter("TotalAmount"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         cartModelList=new ArrayList<>();
         myCartAdapter=new MyCartAdapter(getContext(),cartModelList);
         recyclerView.setAdapter(myCartAdapter);
+
 
         firestore.collection("cart").document(mAuth.getCurrentUser().getUid())
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -93,6 +107,18 @@ public class CartFragment extends Fragment {
                     }
                 });
 
+
+
         return view ;
+
     }
+    public BroadcastReceiver nMessageReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int totalBill=intent.getIntExtra("totalAmount",0);
+            overAllTotaAmount.setText("Total Amount : ₹"+totalBill+"/-");
+        }
+    };
+
 }

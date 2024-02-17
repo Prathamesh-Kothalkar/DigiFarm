@@ -22,16 +22,6 @@
 
     <!-- List of items in the cart -->
     <!-- You can replace this with your actual list view or recycler view -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cart_rec"
-        tools:listitem="@layout/my_cart_item"
-        />
-    </ScrollView>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -41,22 +31,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <!-- Sample CardView representing an item in the cart -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/loading_cart"
+                android:indeterminateTint="@color/bg"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/bg"
-                android:padding="5dp"
-                app:cardCornerRadius="15dp">
-
-                <!-- Add your item details here -->
-                <!-- For example: item name, quantity, price, etc. -->
-
-            </androidx.cardview.widget.CardView>
-
+                android:id="@+id/cart_rec"
+                tools:listitem="@layout/my_cart_item"
+                />
             <!-- You can dynamically add more CardViews for each item in the cart -->
 
         </LinearLayout>
@@ -67,7 +56,7 @@
         android:id="@+id/total_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total Price: 0.00"
+        android:text="Total Amount: 0.00"
         android:textSize="20sp"
         android:gravity="center"
         android:textColor="@color/black"
@@ -78,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Place Order"
+        android:backgroundTint="#FA9707"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:layout_margin="10dp"/>

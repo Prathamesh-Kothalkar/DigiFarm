@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class DetailedActivity extends AppCompatActivity {
     TextView productName,productPrice,productCategory,productCount,productTotalPrice;
     ImageView productImg,productInc,productDec,backBtn;
     Button cartBtn;
+    ProgressBar pb;
     int count,totalAmount;
 
     //newProduct
@@ -71,6 +73,7 @@ public class DetailedActivity extends AppCompatActivity {
             productDec = findViewById(R.id.dec);
             backBtn=findViewById(R.id.backbtn);
             cartBtn=findViewById(R.id.cartBtn);
+            pb=findViewById(R.id.okay);
 
             //New Product
             if(newProductModel!=null){
@@ -125,6 +128,8 @@ public class DetailedActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if(count!=0){
+                        cartBtn.setVisibility(View.GONE);
+                        pb.setVisibility(View.VISIBLE);
                         addToCart();
                     }
                     else{

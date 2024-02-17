@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.digifarm.model.MyCartModel;
@@ -48,6 +49,7 @@ public class CartFragment extends Fragment {
 
     int overAllTotalAmount;
     TextView overAllTotaAmount;
+    ProgressBar pb;
     RecyclerView recyclerView;
     MyCartAdapter myCartAdapter;
     List<MyCartModel> cartModelList;
@@ -82,6 +84,7 @@ public class CartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         recyclerView=view.findViewById(R.id.cart_rec);
         overAllTotaAmount=view.findViewById(R.id.total_amount);
+        pb=view.findViewById(R.id.loading_cart);
         mAuth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
         LocalBroadcastManager.getInstance(getContext())
@@ -98,6 +101,7 @@ public class CartFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
+                            pb.setVisibility(View.GONE);
                             for(DocumentSnapshot doc:task.getResult().getDocuments()){
                                 MyCartModel myCartModel=doc.toObject(MyCartModel.class);
                                 cartModelList.add(myCartModel);

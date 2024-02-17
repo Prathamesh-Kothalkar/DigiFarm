@@ -144,11 +144,21 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/cartBtn"
         android:text="Add to Cart"
-        android:background="@color/bg"
+        android:backgroundTint="@color/bg"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp"/>
+    <ProgressBar
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/okay"
+        android:indeterminateTint="@color/bg"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="150dp"/>
 </RelativeLayout>

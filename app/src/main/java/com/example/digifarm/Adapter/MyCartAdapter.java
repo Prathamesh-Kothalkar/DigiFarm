@@ -1,4 +1,4 @@
-package com.example.digifarm;
+package com.example.digifarm.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.digifarm.R;
 import com.example.digifarm.model.MyCartModel;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.regex.Matcher;

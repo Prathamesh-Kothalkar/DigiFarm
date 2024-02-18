@@ -15,6 +15,12 @@
         android:theme="@style/Theme.DigiFarm"
         tools:targetApi="31">
         <activity
+            android:name=".AddAddress0Activity"
+            android:exported="false" />
+        <activity
+            android:name=".AddressActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShowAllActivity"
             android:exported="false" />
         <activity

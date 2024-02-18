@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.digifarm.Adapter.MyCartAdapter;
 import com.example.digifarm.model.MyCartModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,8 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +53,7 @@ public class CartFragment extends Fragment {
     RecyclerView recyclerView;
     MyCartAdapter myCartAdapter;
     List<MyCartModel> cartModelList;
+    Button placeOrder;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
 
@@ -82,17 +83,18 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        recyclerView=view.findViewById(R.id.cart_rec);
-        overAllTotaAmount=view.findViewById(R.id.total_amount);
-        pb=view.findViewById(R.id.loading_cart);
-        mAuth=FirebaseAuth.getInstance();
-        firestore=FirebaseFirestore.getInstance();
+        recyclerView = view.findViewById(R.id.cart_rec);
+        overAllTotaAmount = view.findViewById(R.id.total_amount);
+        pb = view.findViewById(R.id.loading_cart);
+        placeOrder=view.findViewById(R.id.place_order);
+        mAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
         LocalBroadcastManager.getInstance(getContext())
-                        .registerReceiver(nMessageReceiver,new IntentFilter("TotalAmount"));
+                .registerReceiver(nMessageReceiver, new IntentFilter("TotalAmount"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        cartModelList=new ArrayList<>();
-        myCartAdapter=new MyCartAdapter(getContext(),cartModelList);
+        cartModelList = new ArrayList<>();
+        myCartAdapter = new MyCartAdapter(getContext(), cartModelList);
         recyclerView.setAdapter(myCartAdapter);
 
 
@@ -100,10 +102,10 @@ public class CartFragment extends Fragment {
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             pb.setVisibility(View.GONE);
-                            for(DocumentSnapshot doc:task.getResult().getDocuments()){
-                                MyCartModel myCartModel=doc.toObject(MyCartModel.class);
+                            for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                                MyCartModel myCartModel = doc.toObject(MyCartModel.class);
                                 cartModelList.add(myCartModel);
                                 myCartAdapter.notifyDataSetChanged();
                             }
@@ -111,17 +113,24 @@ public class CartFragment extends Fragment {
                     }
                 });
 
+        placeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),AddressActivity.class);
+                startActivity(intent);
+            }
+        });
 
-
-        return view ;
+        return view;
 
     }
+
     public BroadcastReceiver nMessageReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            int totalBill=intent.getIntExtra("totalAmount",0);
-            overAllTotaAmount.setText("Total Amount : ₹"+totalBill+"/-");
+            int totalBill = intent.getIntExtra("totalAmount", 0);
+            overAllTotaAmount.setText("Total Amount : ₹" + totalBill + "/-");
         }
     };
 

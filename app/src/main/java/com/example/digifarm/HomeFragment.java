@@ -16,14 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.digifarm.Adapter.BannerPagerAdapter;
+import com.example.digifarm.Adapter.CategoryAdapter;
+import com.example.digifarm.Adapter.NewProductsAdapter;
+import com.example.digifarm.Adapter.PopularProductAdapter;
 import com.example.digifarm.model.CategoryModel;
 import com.example.digifarm.model.NewProductModel;
 import com.example.digifarm.model.PopularProductModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,8 +35,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.checkerframework.checker.units.qual.N;
 
 import java.util.ArrayList;
 import java.util.List;

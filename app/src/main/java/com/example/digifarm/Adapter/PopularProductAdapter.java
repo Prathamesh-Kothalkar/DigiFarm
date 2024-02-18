@@ -1,8 +1,7 @@
-package com.example.digifarm;
+package com.example.digifarm.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.digifarm.DetailedActivity;
+import com.example.digifarm.R;
 import com.example.digifarm.model.PopularProductModel;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,DetailedActivity.class);
+                Intent intent = new Intent(context, DetailedActivity.class);
                 intent.putExtra("detailed",list.get(position));
                 context.startActivity(intent);
             }

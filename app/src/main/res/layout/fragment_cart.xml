@@ -66,6 +66,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/place_order"
         android:text="Place Order"
         android:backgroundTint="#FA9707"
         android:textSize="20sp"

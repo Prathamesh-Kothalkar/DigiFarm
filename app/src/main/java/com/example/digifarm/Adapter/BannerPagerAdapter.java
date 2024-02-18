@@ -1,8 +1,10 @@
-package com.example.digifarm;
+package com.example.digifarm.Adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.example.digifarm.BannerFragment;
 
 import java.util.List;
 

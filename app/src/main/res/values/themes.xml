@@ -3,6 +3,7 @@
     <style name="Base.Theme.DigiFarm" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/bg</item>
     </style>
 
     <style name="Theme.DigiFarm" parent="Base.Theme.DigiFarm" />

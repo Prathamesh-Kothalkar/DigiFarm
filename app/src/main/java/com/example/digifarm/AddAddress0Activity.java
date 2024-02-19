@@ -12,6 +12,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,6 +30,9 @@ public class AddAddress0Activity extends AppCompatActivity {
     FirebaseFirestore firestore;
     FirebaseAuth mAuth;
 
+    DatabaseReference databaseReference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +40,33 @@ public class AddAddress0Activity extends AppCompatActivity {
         nameV=findViewById(R.id.ad_name);
         addressV=findViewById(R.id.ad_address);
         cityV=findViewById(R.id.ad_city);
+
         postal_codeV=findViewById(R.id.ad_code);
         phoneV=findViewById(R.id.ad_phone);
         addAddress=findViewById(R.id.ad_add_address);
 
         mAuth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
+
+        databaseReference= FirebaseDatabase.getInstance().getReference("/users/"+mAuth.getCurrentUser().getUid());
+        cityV.setEnabled(false);
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    User user=snapshot.getValue(User.class);
+                    cityV.setText(user.getCity());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         addAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,19 +78,19 @@ public class AddAddress0Activity extends AppCompatActivity {
                 phone=phoneV.getText().toString();
 
                 if(!name.isEmpty()){
-                    finalAddress+=name;
+                    finalAddress+=name+" ";
                 }
                 if(!city.isEmpty()){
-                    finalAddress+=city;
+                    finalAddress+=city+" ";
                 }
                 if(!address.isEmpty()){
-                    finalAddress+=address;
+                    finalAddress+=address+" ";
                 }
                 if(!postal.isEmpty()){
-                    finalAddress+=postal;
+                    finalAddress+=postal+" ";
                 }
                 if(!phone.isEmpty()){
-                    finalAddress+=phone;
+                    finalAddress+=phone+" ";
                 }
 
                 if(name.isEmpty() && city.isEmpty() && address.isEmpty() && postal.isEmpty() && phone.isEmpty()){

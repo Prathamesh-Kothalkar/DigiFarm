@@ -1,4 +1,4 @@
-package com.example.digifarm;
+package com.example.digifarm.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +21,9 @@ import com.example.digifarm.Adapter.BannerPagerAdapter;
 import com.example.digifarm.Adapter.CategoryAdapter;
 import com.example.digifarm.Adapter.NewProductsAdapter;
 import com.example.digifarm.Adapter.PopularProductAdapter;
+import com.example.digifarm.R;
+import com.example.digifarm.ShowAllActivity;
+import com.example.digifarm.model.User;
 import com.example.digifarm.model.CategoryModel;
 import com.example.digifarm.model.NewProductModel;
 import com.example.digifarm.model.PopularProductModel;
@@ -235,7 +238,7 @@ public class HomeFragment extends Fragment {
         popularShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                Intent intent = new Intent(getContext(), ShowAllActivity.class);
                 startActivity(intent);
             }
         });

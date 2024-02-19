@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/HomeFragment"
     android:background="@color/white"
-    tools:context=".HomeFragment">
+    tools:context=".Fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <!-- Banner Image or Carousel -->

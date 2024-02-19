@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.digifarm.BannerFragment;
+import com.example.digifarm.Fragment.BannerFragment;
 
 import java.util.List;
 

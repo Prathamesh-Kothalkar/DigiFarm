@@ -1,4 +1,4 @@
-package com.example.digifarm;
+package com.example.digifarm.Fragment;
 
 import android.os.Bundle;
 
@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.digifarm.Item;
+import com.example.digifarm.MyAdapter;
+import com.example.digifarm.R;
 
 import java.util.ArrayList;
 import java.util.List;

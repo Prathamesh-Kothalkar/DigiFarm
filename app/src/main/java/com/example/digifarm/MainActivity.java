@@ -8,6 +8,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.example.digifarm.Fragment.CartFragment;
+import com.example.digifarm.Fragment.CategoryFragment;
+import com.example.digifarm.Fragment.HomeFragment;
+import com.example.digifarm.Fragment.ProfileFragment;
 import com.example.digifarm.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

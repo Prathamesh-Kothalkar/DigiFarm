@@ -1,4 +1,4 @@
-package com.example.digifarm;
+package com.example.digifarm.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.digifarm.MyContactActivity;
+import com.example.digifarm.R;
+import com.example.digifarm.SelectLoginActivity;
+import com.example.digifarm.SupportActivity;
+import com.example.digifarm.TermsActivity;
+import com.example.digifarm.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -101,7 +106,7 @@ public class ProfileFragment extends Fragment {
         supportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),SupportActivity.class);
+                Intent intent = new Intent(getContext(), SupportActivity.class);
                 startActivity(intent);
             }
         });
@@ -109,7 +114,7 @@ public class ProfileFragment extends Fragment {
         tcButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),TermsActivity.class);
+                Intent intent = new Intent(getContext(), TermsActivity.class);
                 startActivity(intent);
             }
         });
@@ -119,7 +124,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 mAuth.signOut();
                 showToast("Logout Sucessfull..!");
-                Intent in = new Intent(getContext(),SelectLoginActivity.class);
+                Intent in = new Intent(getContext(), SelectLoginActivity.class);
                 in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(in);
             }

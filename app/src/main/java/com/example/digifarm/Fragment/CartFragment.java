@@ -1,4 +1,4 @@
-package com.example.digifarm;
+package com.example.digifarm.Fragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.digifarm.Adapter.MyCartAdapter;
+import com.example.digifarm.AddressActivity;
+import com.example.digifarm.R;
 import com.example.digifarm.model.MyCartModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -116,7 +118,7 @@ public class CartFragment extends Fragment {
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),AddressActivity.class);
+                Intent intent = new Intent(getContext(), AddressActivity.class);
                 startActivity(intent);
             }
         });

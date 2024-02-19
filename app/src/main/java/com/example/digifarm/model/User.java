@@ -1,4 +1,4 @@
-package com.example.digifarm;
+package com.example.digifarm.model;
 
 public class User {
 

@@ -1,24 +1,15 @@
 package com.example.digifarm;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.digifarm.Fragment.AddFragment;
+import com.example.digifarm.Fragment.AgrishopFragment;
+import com.example.digifarm.Fragment.CaretakerFragment;
+import com.example.digifarm.Fragment.FarmerProfileFragment;
 import com.example.digifarm.databinding.ActivityFarmerBinding;
-import com.example.digifarm.databinding.ActivityMainBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;

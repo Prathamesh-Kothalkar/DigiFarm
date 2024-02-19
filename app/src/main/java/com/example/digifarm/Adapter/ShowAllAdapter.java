@@ -2,6 +2,7 @@ package com.example.digifarm.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,19 @@ import com.example.digifarm.DetailedActivity;
 import com.example.digifarm.R;
 import com.example.digifarm.model.ShowAllModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowAllAdapter extends RecyclerView.Adapter<ShowAllAdapter.ViewHolder> {
 
     private Context context;
     private List<ShowAllModel>list;
+    private List<ShowAllModel> filteredList;
 
     public ShowAllAdapter(Context context, List<ShowAllModel> list) {
         this.context = context;
         this.list = list;
+        this.filteredList = new ArrayList<>(list);
     }
 
     @NonNull
@@ -33,7 +37,10 @@ public class ShowAllAdapter extends RecyclerView.Adapter<ShowAllAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.show_all_item,parent,false));
     }
-
+    public void filterList(List<ShowAllModel> filteredList) {
+          list = filteredList;
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Glide.with(context).load(list.get(position).getImg_url()).into(holder.img);
@@ -55,6 +62,7 @@ public class ShowAllAdapter extends RecyclerView.Adapter<ShowAllAdapter.ViewHold
     public int getItemCount() {
         return list.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

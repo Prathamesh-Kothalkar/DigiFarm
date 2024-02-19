@@ -10,7 +10,7 @@
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Category"
+        android:title="All Products"
         android:icon="@drawable/baseline_category_24"
         android:id="@+id/category"/>
     <item

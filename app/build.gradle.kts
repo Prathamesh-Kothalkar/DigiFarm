@@ -32,8 +32,6 @@ android {
     }
 }
 
-
-
 dependencies {
 
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -58,5 +56,6 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.8")
     //glider
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    //
     implementation ("com.razorpay:checkout:1.6.33")
 }

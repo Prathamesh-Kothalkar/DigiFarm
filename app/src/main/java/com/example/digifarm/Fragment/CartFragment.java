@@ -1,5 +1,7 @@
 package com.example.digifarm.Fragment;
 
+import static android.content.Intent.getIntent;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -115,10 +117,15 @@ public class CartFragment extends Fragment {
                     }
                 });
 
+
+        //get total amount
+
+
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddressActivity.class);
+                intent.putExtra("totalAmount", overAllTotalAmount);
                 startActivity(intent);
             }
         });
@@ -132,8 +139,10 @@ public class CartFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             int totalBill = intent.getIntExtra("totalAmount", 0);
+            overAllTotalAmount = totalBill;
             overAllTotaAmount.setText("Total Amount : ₹" + totalBill + "/-");
         }
     };
+
 
 }

@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.digifarm.Adapter.AddressAdapter;
 import com.example.digifarm.model.AddressModel;
+import com.example.digifarm.model.NewProductModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +33,7 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
     FirebaseFirestore firestore;
     FirebaseAuth mAuth;
     String mAddress="";
+    int totalAmount;
 
 
 
@@ -44,13 +47,16 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         mAuth=FirebaseAuth.getInstance();
         recyclerView=findViewById(R.id.address_recycler);
 
+        // Retrieve total amount
+        totalAmount = getIntent().getIntExtra("totalAmount", 0);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         addressModelList=new ArrayList<>();
         addressAdapter=new AddressAdapter(getApplicationContext(),addressModelList,this);
         recyclerView.setAdapter(addressAdapter);
 
         firestore.collection("currentUser").document(mAuth.getCurrentUser().getUid())
-                        .collection("Address").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .collection("Address").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()){
@@ -62,6 +68,9 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
                         }
                     }
                 });
+
+        //get total amount
+
         add_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +82,9 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddressActivity.this,PaymentActivity.class);
+                // Pass total amount to PaymentActivity
+                Intent intent = new Intent(AddressActivity.this, PaymentActivity.class);
+                intent.putExtra("totalAmount", totalAmount);
                 startActivity(intent);
             }
         });

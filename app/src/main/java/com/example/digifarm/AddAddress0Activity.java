@@ -3,6 +3,7 @@ package com.example.digifarm;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -107,6 +108,7 @@ public class AddAddress0Activity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(AddAddress0Activity.this,"Address Added Succesfully",Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(AddAddress0Activity.this,DetailedActivity.class));
                                         finish();
                                     }
                                 }

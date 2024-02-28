@@ -6,15 +6,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.AddFragment">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
-        android:text="Create Product"
-
-        android:textSize="24sp"
+        android:layout_marginEnd="100dp"
+        android:src="@drawable/ic_alert"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_address_toolbar" />
     <Spinner
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.427"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/product_image" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/product_name"
@@ -102,6 +102,18 @@
         android:backgroundTint="@color/bg"
         android:text="Add Product"
         android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progess_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:indeterminateTint="@color/bg"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

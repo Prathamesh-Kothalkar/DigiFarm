@@ -3,28 +3,29 @@ package com.example.digifarm.model;
 import java.io.Serializable;
 
 public class ShowAllModel implements Serializable {
-    String desc,name,category,city,img_url;
-    int price;
+    String uid,name,category,city,img_url;
+    int price,quantity;
 
     public ShowAllModel(){
 
     }
 
-    public ShowAllModel(String img_url,String name, String category, String city, String desc, int price){
+    public ShowAllModel(String img_url,String name, String category, String city, String uid, int price,int quantity){
         this.img_url=img_url;
         this.category=category;
         this.name=name;
         this.price=price;
         this.city=city;
-        this.desc=desc;
+        this.uid=uid;
+        this.quantity=quantity;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getUid() {
+        return uid;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setUid(String desc) {
+        this.uid = desc;
     }
 
     public String getImg_url() {
@@ -66,6 +67,9 @@ public class ShowAllModel implements Serializable {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public int getQuantity(){return quantity;}
+    public void setQuantity(int quantity){this.quantity=quantity;}
 
 
 

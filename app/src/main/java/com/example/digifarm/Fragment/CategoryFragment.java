@@ -16,8 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.digifarm.Adapter.ShowAllAdapter;
 import com.example.digifarm.R;
 import com.example.digifarm.model.ShowAllModel;
+import com.example.digifarm.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,8 +38,11 @@ public class CategoryFragment extends Fragment {
     ShowAllAdapter showAllAdapter;
     List<ShowAllModel> showAllModelList;
     FirebaseFirestore firestore;
+    FirebaseAuth mAuth;
+    DatabaseReference databaseReference;
+    String city;
 
-    List<String>names= new ArrayList<>();
+    List<String> names = new ArrayList<>();
     ProgressBar pb;
 
     private static final String ARG_PARAM1 = "param1";
@@ -76,7 +86,54 @@ public class CategoryFragment extends Fragment {
         recyclerView.setAdapter(showAllAdapter);
 
         firestore = FirebaseFirestore.getInstance();
-        firestore.collection("ShowAll")
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("/users/" + mAuth.getCurrentUser().getUid());
+
+        // Retrieve the city value from Firebase Realtime Database
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    User user = snapshot.getValue(User.class);
+                    city = user.getCity();
+                    // Execute Firestore query after retrieving city
+                    executeFirestoreQuery();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle onCancelled event
+            }
+        });
+
+        SearchView searchView = view.findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String userInput = newText.toLowerCase();
+                List<ShowAllModel> filteredList = new ArrayList<>();
+                for (ShowAllModel model : showAllModelList) {
+                    if (model.getName().toLowerCase().contains(userInput)) {
+                        filteredList.add(model);
+                    }
+                }
+                // Update the adapter with the filtered list
+                showAllAdapter.filterList(filteredList);
+                return true;
+            }
+        });
+
+        return view;
+    }
+
+    private void executeFirestoreQuery() {
+        firestore.collection("ShowAll").whereEqualTo("city", city)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -89,38 +146,10 @@ public class CategoryFragment extends Fragment {
                                 names.add(showAllModel.getName());
                             }
                             showAllAdapter.notifyDataSetChanged(); // Notify adapter after adding data
+                        } else {
+                            Log.e("Firestore", "Error getting documents: ", task.getException());
                         }
                     }
                 });
-
-        SearchView searchView = view.findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                String userInput = newText.toLowerCase();
-
-                List<ShowAllModel> filteredList = new ArrayList<>();
-                for (ShowAllModel model : showAllModelList) {
-                    if (model.getName().toLowerCase().contains(userInput)) {
-                        filteredList.add(model);
-                    }
-                }
-
-                // Update the adapter with the filtered list
-                showAllAdapter.filterList(filteredList);
-                return true;
-            }
-        });
-
-        return view;
     }
-
-
 }

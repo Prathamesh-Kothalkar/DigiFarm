@@ -111,7 +111,9 @@ public class AddFragment extends Fragment {
         pro_price=view.findViewById(R.id.ad_price);
         pro_quantity=view.findViewById(R.id.ad_quantity);
         add_product=view.findViewById(R.id.product_add);
-        firestore=FirebaseFirestore.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+//        mAuth=FirebaseAuth.getInstance();
+        databaseReference= FirebaseDatabase.getInstance().getReference("/users/"+mAuth.getCurrentUser().getUid());
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.product_category, android.R.layout.simple_spinner_item);
@@ -122,7 +124,6 @@ public class AddFragment extends Fragment {
         productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent to pick an image from the gallery
                 Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhotoIntent, PICK_IMAGE_REQUEST);
             }
@@ -140,6 +141,22 @@ public class AddFragment extends Fragment {
                 price = Integer.parseInt(pro_price.getText().toString());
                 quantity = Integer.parseInt(pro_quantity.getText().toString());
                 cat = spinner.getSelectedItem().toString();
+
+                //Get a city
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            User user=snapshot.getValue(User.class);
+                            city=user.getCity();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
                 // Get a reference to Firebase Storage
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("product_images");
@@ -168,13 +185,18 @@ public class AddFragment extends Fragment {
                                 String imageUrl = uri.toString();
 
                                 // Create a ShowAllModel object with the entered data and image URL
-                                ShowAllModel product = new ShowAllModel(imageUrl, name, cat, city, "", price);
+                                ShowAllModel product = new ShowAllModel(imageUrl, name, cat, city, uid, price,quantity);
 
                                 // Add the product to the Realtime Database
                                 firestore.collection("ShowAll").add(product).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentReference> task) {
                                         Toast.makeText(getContext(),"Added",Toast.LENGTH_SHORT).show();
+                                        pro_name.setText(null);
+                                        pro_price.setText(null);
+                                        pro_quantity.setText(null);
+                                        spinner.setSelection(0);
+                                        productImage.setImageResource(R.drawable.select_img);
                                         progressBar.setVisibility(View.GONE);
                                         add_product.setVisibility(View.VISIBLE);
                                     }

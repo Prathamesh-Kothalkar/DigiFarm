@@ -2,6 +2,7 @@ package com.example.digifarm.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -9,21 +10,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.digifarm.MainActivity;
 import com.example.digifarm.R;
+import com.example.digifarm.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AddFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    String name,city,uid,cat;
+    int price,quantity;
+
+    EditText pro_name,pro_price,pro_quantity;
+    Spinner spinner;
+
+    Button add_product;
+
+    FirebaseAuth mAuth;
+
+    FirebaseFirestore firestore;
+    DatabaseReference databaseReference;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -35,15 +53,7 @@ public class AddFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static AddFragment newInstance(String param1, String param2) {
         AddFragment fragment = new AddFragment();
         Bundle args = new Bundle();
@@ -67,33 +77,56 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_add, container, false);
-        Spinner spinner = view.findViewById(R.id.spinner);
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
+        mAuth=FirebaseAuth.getInstance();
+
+        spinner = view.findViewById(R.id.spinner);
+        pro_name=view.findViewById(R.id.ad_name);
+        pro_price=view.findViewById(R.id.ad_price);
+        pro_quantity=view.findViewById(R.id.ad_quantity);
+        add_product=view.findViewById(R.id.product_add);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.product_category, android.R.layout.simple_spinner_item);
 
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        // Set item click listener to handle selection events
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-//                // Handle item selection
-//                String selectedItem = (String) parent.getItemAtPosition(position);
-//                Toast.makeText(getContext(), "Selected: " + selectedItem, Toast.LENGTH_SHORT).show();
-//            }
+        add_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                // Do nothing
-//            }
-//        });
-        // Inflate the layout for this fragment
+
+                uid=mAuth.getCurrentUser().getUid().toString();
+                name=pro_name.getText().toString();
+
+                cat = spinner.getSelectedItem().toString();
+
+                firestore= FirebaseFirestore.getInstance();
+                databaseReference= FirebaseDatabase.getInstance().getReference("/users/"+mAuth.getCurrentUser().getUid());
+
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            User user = snapshot.getValue(User.class);
+                            city= user.getCity().toString();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                Toast.makeText(getContext(),cat,Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
         return view;
     }
 }

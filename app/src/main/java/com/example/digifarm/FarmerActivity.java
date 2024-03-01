@@ -16,37 +16,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class FarmerActivity extends AppCompatActivity {
 
-    //FirebaseDatabase firebaseDatabase;
-    //DatabaseReference databaseReference;
-    //FirebaseAuth  mAuth=FirebaseAuth.getInstance();
-    //Button signout;
-   // Button getdata;
-    //TextView xx;
+
     ActivityFarmerBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_farmer);
-
-      /*  String mb= mAuth.getCurrentUser().getPhoneNumber().toString();
-        Toast.makeText(this, mb, Toast.LENGTH_LONG).show();
-        signout=findViewById(R.id.signout);
-        getdata=findViewById(R.id.getData);
-        xx=findViewById(R.id.ss);*/
 
 
-       /* signout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mAuth != null) {
-                    mAuth.signOut();
-                    Toast.makeText(FarmerActivity.this, "Logout Successfull", Toast.LENGTH_SHORT).show();
-                    Intent in = new Intent(FarmerActivity.this, SelectLoginActivity.class);
-                    startActivity(in);
-                    finish();
-                }
-            }
-        });*/
+
         super.onCreate(savedInstanceState);
         binding= ActivityFarmerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,10 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DigiFarm"
         tools:targetApi="31">
+        <activity
+            android:name=".MyProductsActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
-            android:value="ica"/>
+            android:value="ica" />
+
         <activity
             android:name=".PaymentActivity"
             android:exported="false" />
@@ -75,8 +78,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <meta-data android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_fDiNufpzdERK1T"/>
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_fDiNufpzdERK1T" />
     </application>
 
 </manifest>

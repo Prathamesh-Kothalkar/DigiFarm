@@ -143,7 +143,7 @@ public class FarmerOtpActivity extends AppCompatActivity {
                         super.onCodeSent(s, forceResendingToken);
                         verificationCode = s;
                         resendingToken = forceResendingToken;
-                        showToast("Otp Send Suc");
+                        showToast("Otp Send Successfully");
                         otp.setEnabled(true);
                         login.setEnabled(true);
                         setInProgress(false);

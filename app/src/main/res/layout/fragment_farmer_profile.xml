@@ -79,8 +79,8 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/myOrderButton"
-                    android:text="My Order"
+                    android:id="@+id/myProductsButton"
+                    android:text="My Products"
                     android:background="?android:attr/selectableItemBackground"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"

@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.digifarm.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,15 +41,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FarmerHomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FarmerHomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     RecyclerView recyclerView;
     List<Article> articleList=new ArrayList<>();
     NewsRecyclerAdapter adapter;
@@ -58,6 +53,7 @@ public class FarmerHomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String city;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -67,21 +63,11 @@ public class FarmerHomeFragment extends Fragment {
     private RequestQueue requestQueue;
     View view;
 
-    TextView namex;
 
     public FarmerHomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FarmerHomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FarmerHomeFragment newInstance(String param1, String param2) {
         FarmerHomeFragment fragment = new FarmerHomeFragment();
         Bundle args = new Bundle();
@@ -113,38 +99,31 @@ public class FarmerHomeFragment extends Fragment {
         weatherTextView = view.findViewById(R.id.weatherTextView);
         temperatureTextView=view.findViewById(R.id.temperatureTextView);
 
+        databaseReference= FirebaseDatabase.getInstance().getReference("users/"+mAuth.getCurrentUser().getUid());
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    User user = snapshot.getValue(User.class);
+                    city= user.getCity();
+                    if(city!=null){
+                        fetchWeatherData("498295b20f96fcb697093ffec40b9c6f", city);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         // Initialize Volley request queue
         requestQueue = Volley.newRequestQueue(getContext());
 
-        // Call the method to fetch weather data
-        fetchWeatherData("498295b20f96fcb697093ffec40b9c6f", "Jalgaon");
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
 
-        if (currentUser != null) {
-            String uid = currentUser.getUid();
-            //String uid = currentUser.getUid();
-            Log.d("UID", "Current UID: " + uid);
-
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/"+uid);
-            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                        }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    // Handle errors
-
-                    Toast.makeText(getActivity(), "Failed to read user data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            // No user is signed in
-            Toast.makeText(getActivity(), "No user is signed in", Toast.LENGTH_SHORT).show();
-        }
         recyclerView=view.findViewById(R.id.news_recycler_view);
         setupRecyclerView();
         getNews();

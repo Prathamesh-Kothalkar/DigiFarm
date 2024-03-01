@@ -40,8 +40,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/shop_no"
         android:textColor="@color/black"
-        tools:text="9999999999"
+        android:text="+919021023183"
         android:autoLink="phone"
+        android:clickable="true"
         android:layout_toEndOf="@id/fimageView"
         android:layout_below="@id/shop_owner" />
     <LinearLayout

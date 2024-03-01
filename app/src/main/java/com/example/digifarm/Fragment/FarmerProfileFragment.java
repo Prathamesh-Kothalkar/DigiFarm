@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.digifarm.MyContactActivity;
+import com.example.digifarm.MyProductsActivity;
 import com.example.digifarm.R;
 import com.example.digifarm.SelectLoginActivity;
 import com.example.digifarm.SupportActivity;
@@ -35,6 +36,8 @@ public class FarmerProfileFragment extends Fragment {
     FirebaseAuth mAuth;
     Button tcButton;
 
+    Button myProducts;
+
     TextView name;
     TextView mobile;
 
@@ -52,6 +55,7 @@ public class FarmerProfileFragment extends Fragment {
         contact=view.findViewById(R.id.myContactButton);
         logout=view.findViewById(R.id.FarmerlogoutButton);
         tcButton=view.findViewById(R.id.tcButton);
+        myProducts=view.findViewById(R.id.myProductsButton);
         mAuth=FirebaseAuth.getInstance();
 
         databaseReference=FirebaseDatabase.getInstance().getReference("users/"+mAuth.getCurrentUser().getUid());
@@ -107,6 +111,14 @@ public class FarmerProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent in = new Intent(getContext(), MyContactActivity.class);
                 startActivity(in);
+            }
+        });
+
+        myProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MyProductsActivity.class);
+                startActivity(intent);
             }
         });
         return view;

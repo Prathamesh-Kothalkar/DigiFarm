@@ -15,6 +15,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
     }
 
     buildTypes {
@@ -59,4 +61,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     //
     implementation ("com.razorpay:checkout:1.6.33")
+    implementation("com.google.ai.client.generativeai:generativeai:0.2.2")
+    implementation("com.google.guava:guava:31.0.1-android")
+    implementation("org.reactivestreams:reactive-streams:1.0.4")
 }

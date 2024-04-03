@@ -41,8 +41,8 @@
         android:id="@+id/shop_no"
         android:textColor="@color/black"
         android:text="+919021023183"
-        android:autoLink="phone"
-        android:clickable="true"
+        android:textSize="17sp"
+        android:textIsSelectable="true"
         android:layout_toEndOf="@id/fimageView"
         android:layout_below="@id/shop_owner" />
     <LinearLayout

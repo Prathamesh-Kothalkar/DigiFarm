@@ -47,9 +47,10 @@ public class CaretakerFragment extends Fragment {
     private ImageView imageViewSelectedPhoto;
 
     ProgressBar pb;
-    TextView genText;
+    TextView genText,warnText;
     private Button buttonSelectPhoto, buttonSeeDiagnosis;
 
+    String diagonsis;
 
     private View rootView;
 
@@ -69,6 +70,7 @@ public class CaretakerFragment extends Fragment {
         buttonSeeDiagnosis = rootView.findViewById(R.id.buttonSeeDiagnosis);
         pb=rootView.findViewById(R.id.genrate);
         genText=rootView.findViewById(R.id.genratedText);
+        warnText=rootView.findViewById(R.id.warnText);
 
 
         buttonSelectPhoto.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +98,7 @@ public class CaretakerFragment extends Fragment {
 
                 Content content = new Content.Builder()
                         .addImage(img)
-                        .addText("What's the name of Picture")
+                        .addText("What's the name of Plant and Identify the Disease of that Plant and Tells the Medicine for that Disease ?")
                         .build();
 
                 Executor executor = Executors.newSingleThreadExecutor();
@@ -111,10 +113,11 @@ public class CaretakerFragment extends Fragment {
                             @Override
                             public void run() {
                                 genText.setText(resultText);
+                                diagonsis=resultText;
                                 pb.setVisibility(View.GONE);
+                                warnText.setVisibility(View.VISIBLE);
                             }
                         });
-                        Log.d("Diagnosis Result", resultText); // Logging the result
                     }
 
                     @Override
@@ -124,9 +127,6 @@ public class CaretakerFragment extends Fragment {
                 }, executor);
             }
         });
-
-
-
 
 
 

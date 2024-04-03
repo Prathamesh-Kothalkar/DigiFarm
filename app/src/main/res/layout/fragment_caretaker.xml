@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F4E3C4"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.CaretakerFragment">
     <RelativeLayout
@@ -12,25 +13,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="@color/bg"/>
+            android:background="@color/bg">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Crop Care Taker"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                />
+        </androidx.appcompat.widget.Toolbar>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar">
+            android:layout_below="@id/toolbar"
+            android:id="@+id/scroll"
+           >
+
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="16dp">
+                >
 
                 <!-- Display Selected Photo -->
                 <ImageView
                     android:id="@+id/imageViewSelectedPhoto"
                     android:layout_width="300dp"
-                    android:layout_height="300dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"
                     android:src="@drawable/greet"
-                    android:layout_gravity="center_horizontal"
                     android:visibility="visible" />
 
                 <!-- CardView with Options -->
@@ -44,57 +58,60 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:orientation="horizontal"
-                        android:weightSum="3"
-                        android:gravity="center">
+                        android:background="#C4E69D"
+                        android:weightSum="3">
 
                         <!-- Take a Photo Button -->
                         <Button
                             android:id="@+id/buttonTakePhoto"
-                            android:layout_width="0dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:text="Take a Photo"
-                            android:layout_marginEnd="8dp" />
+                            android:layout_width="150dp"
+                            android:layout_height="80dp"
+                            android:text="Take a Photo" />
 
                         <!-- See Diagnosis Button -->
                         <Button
                             android:id="@+id/buttonSeeDiagnosis"
-                            android:layout_width="0dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:text="See Diagnosis"
+                            android:layout_width="150dp"
+                            android:layout_height="80dp"
                             android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp" />
-
-                        <!-- Get Medicine Button -->
-                        <Button
-                            android:id="@+id/buttonGetMedicine"
-                            android:layout_width="0dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:text="Get Medicine"
-                            android:layout_marginStart="8dp" />
+                            android:layout_marginEnd="8dp"
+                            android:text="See Problem / Solution" />
 
                     </LinearLayout>
 
 
-
                 </androidx.cardview.widget.CardView>
+
                 <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/genrate"
-                    android:visibility="gone"
-                    />
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone" />
+                <TextView
                     android:id="@+id/genratedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textSize="25sp"
+                    android:textIsSelectable="true"
+                    android:padding="20dp"
+                    />
+
+                <TextView
+                    android:layout_marginTop="50dp"
+                    android:id="@+id/warnText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/warn"
+                    android:textStyle="italic"
+                    android:layout_marginBottom="100dp"
                     />
 
             </LinearLayout>
+
         </ScrollView>
+
     </RelativeLayout>
 </FrameLayout>

@@ -108,7 +108,7 @@ public class CaretakerFragment extends Fragment {
                     @Override
                     public void onSuccess(GenerateContentResponse result) {
                         String resultText = result.getText();
-                        // Update UI with the generated text
+
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
